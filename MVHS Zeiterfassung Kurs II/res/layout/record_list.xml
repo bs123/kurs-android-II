@@ -39,6 +39,10 @@
           android:gravity="center"
           android:text="@string/col_work_time" />
 	</LinearLayout> 
+	<View
+	    android:layout_width="match_parent"
+	    android:layout_height="4dp"
+	    android:background="#cccccc" />
 	<ListView
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"

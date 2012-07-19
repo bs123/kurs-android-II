@@ -7,7 +7,14 @@
         android:icon="@drawable/ic_menu_view">
         
     </item>
-    <item android:id="@+id/opt_preferences" android:title="@string/opt_pref_long" android:titleCondensed="@string/opt_pref_short" android:showAsAction="ifRoom"></item>
+    <item
+        android:id="@+id/opt_preferences"
+        android:title="@string/opt_pref_long"
+        android:titleCondensed="@string/opt_pref_short"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_menu_preferences">
+        
+    </item>
     
 
 </menu>

@@ -7,12 +7,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
+  /*
+   * Versionsgeschichte
+   * ==================
+   * 1: Initial DB Entwurf
+   * 2: Erweiterung um ein View für bessere UI-Darstellung
+   * 3: Erweiterung der tabelle um Kontakte, GPS und Bild Spalten
+   */
   // Variablen
   private static final String          DATABASE_NAME    = "database.db";
-  private static final int             DATABASE_VERSION = 2;
+  private static final int             DATABASE_VERSION = 3;
   /**
-   * Formater für die Formatierung und Parsen des Datums aus und in die
-   * Datenbank
+   * Formater für die Formatierung und Parsen des Datums aus und in die Datenbank
    */
   public static final SimpleDateFormat DB_DATE_FORMAT   = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 

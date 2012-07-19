@@ -234,7 +234,8 @@ public class WorkTimeContentProvider extends ContentProvider {
     switch (_URI_MATCHER.match(uri)) {
       case _WORK_TIMES:
       case _WORK_TIME_ITEM:
-        available = new String[] { WorktimeTable.COLUMN_ID, WorktimeTable.COLUMN_START_TIME, WorktimeTable.COLUMN_END_TIME };
+        available = new String[] { WorktimeTable.COLUMN_ID, WorktimeTable.COLUMN_START_TIME, WorktimeTable.COLUMN_END_TIME,
+            WorktimeTable.COLUMN_CONTACT_NAME, WorktimeTable.COLUMN_POSITION, WorktimeTable.COLUMN_PICTURE };
         break;
 
       case _SELECT_WORK_TIMES:
