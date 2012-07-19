@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <EditTextPreference android:title="@string/pref_export_path_title" android:summary="@string/pref_export_path_message" android:defaultValue="export/mvhs" android:key="export_path" android:dialogTitle="@string/pref_export_path_title" android:dialogMessage="@string/pref_export_path_message"/>
+    
+
+</PreferenceScreen>

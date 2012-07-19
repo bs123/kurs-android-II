@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/opt_list"
+        android:showAsAction="ifRoom"
+        android:title="@string/opt_list_long"
+        android:titleCondensed="@string/opt_list_short"
+        android:icon="@drawable/ic_menu_view">
+        
+    </item>
+    <item android:id="@+id/opt_preferences" android:title="@string/opt_pref_long" android:titleCondensed="@string/opt_pref_short" android:showAsAction="ifRoom"></item>
+    
+
+</menu>
