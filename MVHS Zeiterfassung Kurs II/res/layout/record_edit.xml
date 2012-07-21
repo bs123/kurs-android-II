@@ -15,11 +15,11 @@
         android:inputType="datetime"
         android:ems="10" >
 
-        <requestFocus />
+        <requestFocus android:layout_width="match_parent" />
+
     </EditText>
 
     <TextView
-        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lbl_end_time" />
@@ -30,5 +30,28 @@
         android:layout_height="wrap_content"
         android:inputType="datetime"
         android:ems="10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_contact" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    
+        <Button
+            android:id="@+id/cmd_select_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cmd_select_contact" />
+        
+		    <EditText
+		        android:id="@+id/txt_contact"
+		        android:layout_height="wrap_content"
+		        android:layout_width="match_parent"
+		        android:inputType="text"
+		        android:maxLines="1" />
+    </LinearLayout>
 
 </LinearLayout>

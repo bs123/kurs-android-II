@@ -12,18 +12,20 @@
     <string name="col_start">Startzeit</string>
     <string name="col_end">Endzeit</string>
     <string name="col_work_time">Arbeitszeit</string>
+    <string name="ctx_edit">Bearbeiten</string>
+    <string name="ctx_delete">Löschen</string>
+    <string name="ctx_export">CSV Export</string>
+    <string name="dlg_export_title">Export . . .</string>
+    <string name="dlg_export_message">Daten werden exportiert . . .</string>
+    <!-- Bearbeiten -->
+    <string name="lbl_contact">Kontankt</string>
+    <string name="cmd_select_contact">Suche</string>
     <!-- Menüs -->
     <!-- Startbildschirm -->
     <string name="opt_list_long">Liste der Einträge</string>
     <string name="opt_list_short">Liste</string>
     <string name="opt_pref_short">Einstellungen</string>
     <string name="opt_pref_long">App Einstellungen</string>
-    <!-- Auflistung -->
-    <string name="ctx_edit">Bearbeiten</string>
-    <string name="ctx_delete">Löschen</string>
-    <string name="ctx_export">CSV Export</string>
-    <string name="dlg_export_title">Export . . .</string>
-    <string name="dlg_export_message">Daten werden exportiert . . .</string>
     <!-- Bearbeitung -->
     <string name="opt_save_short">Speichern</string>
     <string name="opt_save_long">Eintrag speichern</string>

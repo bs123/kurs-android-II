@@ -344,4 +344,27 @@ public class WorktimeTable {
 
     return returnValue;
   }
+
+  /**
+   * Auslesen des Zugeordneten Kontaktes
+   * 
+   * @param id
+   *          ID des Datensatzes
+   * @return Name des Kontaktes
+   */
+  public String getContactName(long id) {
+    String returnValue = "";
+
+    DBHelper helper = new DBHelper(_CONTEXT);
+    SQLiteDatabase db = helper.getReadableDatabase();
+
+    Cursor data = db.query(WorktimeTable.TABLE_NAME, new String[] { WorktimeTable.COLUMN_CONTACT_NAME }, WorktimeTable.COLUMN_ID + "=?",
+        new String[] { String.valueOf(id) }, null, null, null);
+
+    if (data != null && data.moveToFirst() && !data.isNull(0)) {
+      returnValue = data.getString(0);
+    }
+
+    return returnValue;
+  }
 }
