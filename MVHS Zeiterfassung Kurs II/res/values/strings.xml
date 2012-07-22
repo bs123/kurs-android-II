@@ -15,6 +15,7 @@
     <string name="ctx_edit">Bearbeiten</string>
     <string name="ctx_delete">Löschen</string>
     <string name="ctx_export">CSV Export</string>
+    <string name="ctx_calendar">Kalender-Eintrag</string>
     <string name="dlg_export_title">Export . . .</string>
     <string name="dlg_export_message">Daten werden exportiert . . .</string>
     <!-- Bearbeiten -->

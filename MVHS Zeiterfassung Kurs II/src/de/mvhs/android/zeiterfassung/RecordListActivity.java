@@ -1,5 +1,7 @@
 package de.mvhs.android.zeiterfassung;
 
+import java.util.Date;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -10,6 +12,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -139,6 +142,34 @@ public class RecordListActivity extends ListActivity implements LoaderCallbacks<
         getLoaderManager().restartLoader(_EXPORT_LOADER, null, this);
 
         break;
+
+      case R.id.ctx_calendar:
+        // Auslesen der Werte für den Kalender
+        Cursor data = _Adapter.getCursor();
+        if (data.moveToPosition(info.position)) {
+          WorktimeTable table = new WorktimeTable(this);
+          Date startTime = table.getStartDate(info.id);
+          Date endTime = table.getEndDate(info.id);
+          // Ausgewählten Eintrag in den Kalender schreiben (API erst ab API14 Verfügbar)
+          // Intent intentCalendar = new Intent(Intent.ACTION_INSERT) // Funktioniert nicht auf allen Handys
+          Intent intentCalendar = new Intent(Intent.ACTION_EDIT)
+          // Bestimmen des Intents
+          // .setData(CalendarContract.Events.CONTENT_URI)
+              .setType("vnd.android.cursor.item/event")
+              // Startzeit
+              .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime.getTime())
+              // Endzeit
+              .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTime())
+              // Titel
+              .putExtra(CalendarContract.Events.TITLE, "Arbeitszeiterfassung")
+              // Beschreibung
+              .putExtra(CalendarContract.Events.DESCRIPTION, "Erfasste Zeit")
+              // Verfügbarkeit
+              .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+          startActivity(intentCalendar);
+        }
+        break;
+
       default:
         break;
     }

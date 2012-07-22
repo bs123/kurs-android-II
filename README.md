@@ -27,5 +27,27 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 * [PreferenceFragment (API Reference mit Beispielcode)] (http://developer.android.com/reference/android/preference/PreferenceFragment.html)
 * [SimpleCursorAdapter (API Reference)] (http://developer.android.com/reference/android/widget/SimpleCursorAdapter.html)
 
+##Kursthemen zum Tag 2##
+1. Externe ContentProvider
+1.1 Kontakte
+2. Implizite Intents
+2.1 Kalender
+2.2 E-Mail Versand
+3. Einfacher Oberflächentest mit Monkey
+
+###Links###
+####Blogs####
+* [Vogella: Using the Contact Content Provider](http://www.vogella.com/articles/AndroidSQLite/article.html#tutorialusecp_example)
+* [Vogella: Android Calendar API - Tutorial](http://www.vogella.com/articles/AndroidCalendar/article.html)
+* [Vogella: Monkey](http://www.vogella.com/articles/AndroidTesting/article.html#monkey)
+
+####Android Developer (Englisch)####
+* [Contacts Provider (Guide)](http://developer.android.com/guide/topics/providers/contacts-provider.html)
+* [ContactsContract.Contacts (API Reference)](http://developer.android.com/reference/android/provider/ContactsContract.Contacts.html)
+* [Calendar Provider (Guide)](http://developer.android.com/guide/topics/providers/calendar-provider.html)
+* [CalendarContract.Events (API Reference)](http://developer.android.com/reference/android/provider/CalendarContract.Events.html)
+* [Monkey (Tools)](http://developer.android.com/tools/help/monkey.html)
+* []
+
 ##Flattr##
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=WebDucer&url=https://github.com/WebDucer/MVHS-Android-II&title=MVHS-Android-II&language=de_DE&tags=github&category=software)
