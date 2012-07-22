@@ -15,6 +15,7 @@
     <string name="ctx_edit">Bearbeiten</string>
     <string name="ctx_delete">Löschen</string>
     <string name="ctx_export">CSV Export</string>
+    <string name="ctx_send_to">Senden</string>
     <string name="ctx_calendar">Kalender-Eintrag</string>
     <string name="dlg_export_title">Export . . .</string>
     <string name="dlg_export_message">Daten werden exportiert . . .</string>
@@ -46,5 +47,7 @@
     <string name="pref_export_path_message">Geben Sie das Export-Verzeichnis hier an.</string>
     <string name="pref_header_general_title">Allgemein</string>
     <string name="pref_header_general_message">Allgemeine Angaben zur App</string>
+    <string name="pref_send_to_title">Senden an</string>
+    <string name="pref_send_to_message">E-mail-Adresse des Empfängers für den E-Mail-Export</string>
 
 </resources>

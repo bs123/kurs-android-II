@@ -6,18 +6,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 
 public class CSVExporter extends AsyncTask<Cursor, Integer, Void> {
   // Klassenvariablen
-  private String         _ExportFileName;
-  private ProgressDialog _Progress;
+  private final String         _ExportFileName;
+  private final ProgressDialog _Progress;
+  private final String         _ToEmail;
+  private final Context        _Context;
+  private File                 _ExportFile;
 
-  public CSVExporter(String exportFileName, ProgressDialog dialog) {
+  public CSVExporter(String exportFileName, ProgressDialog dialog, String toEmail, Context context) {
     _ExportFileName = exportFileName;
     _Progress = dialog;
+    _ToEmail = toEmail;
+    _Context = context;
   }
 
   @Override
@@ -40,6 +48,14 @@ public class CSVExporter extends AsyncTask<Cursor, Integer, Void> {
   protected void onPostExecute(Void result) {
     if (_Progress != null && _Progress.isShowing()) {
       _Progress.dismiss();
+    }
+    if (_ToEmail != null && !_ToEmail.isEmpty() && _ExportFile != null && _ExportFile.exists()) {
+      Intent sendEmail = new Intent(Intent.ACTION_SEND);
+      sendEmail.putExtra(Intent.EXTRA_EMAIL, new String[] { _ToEmail });
+      sendEmail.putExtra(Intent.EXTRA_SUBJECT, "Arbeitszeiterfassung");
+      sendEmail.setType("text/plain");
+      sendEmail.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + _ExportFile));
+      _Context.startActivity(sendEmail);
     }
     super.onPostExecute(result);
   }
@@ -66,12 +82,13 @@ public class CSVExporter extends AsyncTask<Cursor, Integer, Void> {
       _Progress.setMax(exportData.getCount() + 1);
 
       File exportPath = Environment.getExternalStorageDirectory();
-      File exportFile = new File(exportPath, _ExportFileName);
+      _ExportFile = new File(exportPath, _ExportFileName);
+      exportPath.mkdirs();
 
       if (exportPath.exists()) {
         BufferedWriter writer = null;
         try {
-          writer = new BufferedWriter(new FileWriter(exportFile));
+          writer = new BufferedWriter(new FileWriter(_ExportFile));
 
           // Auslesen der Spaltennamen aus dem Cursor
           String[] columnNames = exportData.getColumnNames();
@@ -119,6 +136,7 @@ public class CSVExporter extends AsyncTask<Cursor, Integer, Void> {
           }
 
         } catch (IOException e) {
+          e.printStackTrace();
         } finally {
           // Schließen der Datei
           if (writer != null) {
@@ -126,6 +144,7 @@ public class CSVExporter extends AsyncTask<Cursor, Integer, Void> {
               writer.flush();
               writer.close();
             } catch (IOException e) {
+              e.printStackTrace();
             }
           }
         }

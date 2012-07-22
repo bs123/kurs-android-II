@@ -14,7 +14,8 @@
         android:id="@+id/ctx_export"
         android:title="@string/ctx_export"
         android:titleCondensed="@string/ctx_export"></item>
-    <item android:id="@+id/ctx_calendar" android:title="@string/ctx_calendar"></item>
+    <item android:id="@+id/ctx_send_to" android:title="@string/ctx_send_to"></item><item android:id="@+id/ctx_calendar" android:title="@string/ctx_calendar"></item>
+    
     
 
 </menu>

@@ -25,11 +25,13 @@ import de.mvhs.android.zeiterfassung.db.WorktimeTable;
 
 public class RecordListActivity extends ListActivity implements LoaderCallbacks<Cursor> {
   // Loader ID für die Liste
-  private final static int      _LOADER        = 1;
+  private final static int      _LOADER         = 1;
   // Loader ID für den Export
-  private final static int      _EXPORT_LOADER = 2;
+  private final static int      _EXPORT_LOADER  = 2;
+  // Loader für Send To Export
+  private final static int      _SEND_TO_LOADER = 3;
   // Eigener Cursor
-  private WorktimeCursorAdapter _Adapter       = null;
+  private WorktimeCursorAdapter _Adapter        = null;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -129,18 +131,21 @@ public class RecordListActivity extends ListActivity implements LoaderCallbacks<
         builder.create().show();
 
         break;
+
       case R.id.ctx_edit:
         Intent editIntent = new Intent(this, RecordEditActivity.class);
         editIntent.putExtra(RecordEditActivity.ID_KEY, info.id);
         // Übergeben der ID an die neue Activity
         startActivity(editIntent);
-
         break;
 
       case R.id.ctx_export:
         // Exportieren der Daten
         getLoaderManager().restartLoader(_EXPORT_LOADER, null, this);
+        break;
 
+      case R.id.ctx_send_to:
+        getLoaderManager().restartLoader(_SEND_TO_LOADER, null, this);
         break;
 
       case R.id.ctx_calendar:
@@ -182,6 +187,7 @@ public class RecordListActivity extends ListActivity implements LoaderCallbacks<
     switch (loaderId) {
       case _LOADER:
       case _EXPORT_LOADER:
+      case _SEND_TO_LOADER:
         returnValue = new CursorLoader(this, // Context
             WorkTimeContentProvider.CONTENT_URI_WORK_TIME_SELECT, // ContentProvider
                                                                   // URI
@@ -202,12 +208,15 @@ public class RecordListActivity extends ListActivity implements LoaderCallbacks<
   }
 
   public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    String send_to = null;
     switch (loader.getId()) {
       case _LOADER:
         // Zuweisung der Daten an den Adapter
         _Adapter.swapCursor(data);
         break;
 
+      case _SEND_TO_LOADER:
+        send_to = AppPreferenceFragment.getPreferences(this).getString("send_to_email", "");
       case _EXPORT_LOADER:
         // Fortschrittsdialog erzeugen
         final ProgressDialog dialog = new ProgressDialog(this);
@@ -216,7 +225,7 @@ public class RecordListActivity extends ListActivity implements LoaderCallbacks<
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
         final CSVExporter export = new CSVExporter(
-            AppPreferenceFragment.getPreferences(this).getString("export_path", "export/mvhs") + "/export.csv", dialog);
+            AppPreferenceFragment.getPreferences(this).getString("export_path", "export/mvhs") + "/export.csv", dialog, send_to, this);
 
         dialog.setCancelable(true);
         dialog.setButton(ProgressDialog.BUTTON_NEGATIVE, getString(R.string.dlg_cancel), new DialogInterface.OnClickListener() {
