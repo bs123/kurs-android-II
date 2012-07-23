@@ -47,7 +47,16 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 * [Calendar Provider (Guide)](http://developer.android.com/guide/topics/providers/calendar-provider.html)
 * [CalendarContract.Events (API Reference)](http://developer.android.com/reference/android/provider/CalendarContract.Events.html)
 * [Monkey (Tools)](http://developer.android.com/tools/help/monkey.html)
-* []
+
+###Themenvorschläge für die nächste Woche ##
+* **Widgets**
+* **Services / BroadcastReceiver**
+* **JUnit / Robotium**
+* **Wietere Sensore (Beschleunigung, Kompas, ...)**
+* Externe Bibliotheken (ACRA Crash Report Sender)
+* Kompabilitätsbibliothek
+* Fragmente
+* Versionsstrategien (Git)
 
 ##Flattr##
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=WebDucer&url=https://github.com/WebDucer/MVHS-Android-II&title=MVHS-Android-II&language=de_DE&tags=github&category=software)
