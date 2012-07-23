@@ -53,5 +53,28 @@
 		        android:inputType="text"
 		        android:maxLines="1" />
     </LinearLayout>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_position" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    
+        <Button
+            android:id="@+id/cmd_select_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cmd_select_position" />
+        
+        <EditText
+            android:id="@+id/txt_position"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:inputType="text"
+            android:maxLines="1" />
+    </LinearLayout>
 
 </LinearLayout>

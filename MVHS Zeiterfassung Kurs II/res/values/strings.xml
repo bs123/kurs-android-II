@@ -22,6 +22,8 @@
     <!-- Bearbeiten -->
     <string name="lbl_contact">Kontankt</string>
     <string name="cmd_select_contact">Suche</string>
+    <string name="lbl_position">GPS Position</string>
+    <string name="cmd_select_position">Zuordnen</string>
     <!-- Menüs -->
     <!-- Startbildschirm -->
     <string name="opt_list_long">Liste der Einträge</string>
