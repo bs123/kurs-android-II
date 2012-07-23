@@ -29,10 +29,10 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 
 ##Kursthemen zum Tag 2##
 1. Externe ContentProvider
-1.1 Kontakte
+  1. Kontakte
 2. Implizite Intents
-2.1 Kalender
-2.2 E-Mail Versand
+  1. Kalender
+  2. E-Mail Versand
 3. Einfacher Oberflächentest mit Monkey
 
 ###Links###
