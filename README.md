@@ -48,6 +48,16 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 * [CalendarContract.Events (API Reference)](http://developer.android.com/reference/android/provider/CalendarContract.Events.html)
 * [Monkey (Tools)](http://developer.android.com/tools/help/monkey.html)
 
+###Themenvorschläge für die nächste Woche ##
+* **Widgets**
+* **Services / BroadcastReceiver**
+* **JUnit / Robotium**
+* **Wietere Sensore (Beschleunigung, Kompas, ...)**
+* Externe Bibliotheken (ACRA Crash Report Sender)
+* Kompabilitätsbibliothek
+* Fragmente
+* Versionsstrategien (Git)
+
 ##Kursthemen Tag 3##
 1. Internet-Kommunikation
 1.1 REST Zugriff auf GitHub Issues
