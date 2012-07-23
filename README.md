@@ -47,7 +47,39 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 * [Calendar Provider (Guide)](http://developer.android.com/guide/topics/providers/calendar-provider.html)
 * [CalendarContract.Events (API Reference)](http://developer.android.com/reference/android/provider/CalendarContract.Events.html)
 * [Monkey (Tools)](http://developer.android.com/tools/help/monkey.html)
-* []
+
+##Kursthemen Tag 3##
+1. Internet-Kommunikation
+1.1 REST Zugriff auf GitHub Issues
+1.2 Lesen der RSS-Feeds
+2. Sensoren
+2.1 GPS
+2.2 Kamera
+
+###Links###
+####Blogs####
+* [Vogella: JSON in Android - Tutorial](http://www.vogella.com/articles/AndroidJSON/article.html)
+* [Vogella: Android HTTP Access - Tutorial](http://www.vogella.com/articles/AndroidNetworking/article.html)
+* [Vodella: Android XML Processing with the XmlPullParser - Tutorial](http://www.vogella.com/articles/AndroidXML/article.html)
+* [Vogella: Location API and Google Map in Android - Tutorial](http://www.vogella.com/articles/AndroidLocationAPI/article.html)
+* [Vogella: Android Sensor - Tutorial](http://www.vogella.com/articles/AndroidSensor/article.html)
+* [Vogella: Android Camera API - Tutorial](http://www.vogella.com/articles/AndroidCamera/article.html)
+
+####Android Developer (Englisch)####
+* [Connectivity (Guide)](http://developer.android.com/guide/topics/connectivity/index.html)
+* [Connecting to the Network (Training)](http://developer.android.com/training/basics/network-ops/connecting.html)
+* [Managing Network Usage (Training)](http://developer.android.com/training/basics/network-ops/managing.html)
+* [Parsing XML Data (Training)](http://developer.android.com/training/basics/network-ops/xml.html)
+* [Optimizing Downloads for Efficient Network Access (Training)](http://developer.android.com/training/efficient-downloads/efficient-network-access.html)
+* [org.apache.http.client (API Reference)](http://developer.android.com/reference/org/apache/http/client/package-summary.html)
+* [HttpURLConnection (API Reference)](http://developer.android.com/reference/java/net/HttpURLConnection.html)
+* [Xml (API Reference)](http://developer.android.com/reference/android/util/Xml.html)
+* [org.json (ALI Reference)](http://developer.android.com/reference/org/json/package-summary.html)
+* [Location and Sensors (Guide)](http://developer.android.com/guide/topics/sensors/index.html)
+* [Using the Location Manager (Training)](http://developer.android.com/training/basics/location/locationmanager.html)
+* [Location Strategies (Guide)](http://developer.android.com/guide/topics/location/strategies.html)
+* [LocationManager (API Reference)](http://developer.android.com/reference/android/location/LocationManager.html)
+* [Sensor (API Reference)](http://developer.android.com/reference/android/hardware/Sensor.html)
 
 ##Flattr##
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=WebDucer&url=https://github.com/WebDucer/MVHS-Android-II&title=MVHS-Android-II&language=de_DE&tags=github&category=software)

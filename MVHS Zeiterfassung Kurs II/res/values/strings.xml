@@ -35,6 +35,8 @@
     <string name="opt_cancel_long">Bearbeitung abbrechen</string>
     <string name="opt_delete_short">Löschen</string>
     <string name="opt_delete_long">Eintrag löschen</string>
+    <string name="opt_info_short">Info</string>
+    <string name="opt_info_long">Informationen</string>
     <!-- Dialoge -->
     <string name="dlg_confirm_title">Löschbestätigung</string>
     <string name="dlg_confirm_message">Wollen Sie den Eintrag wirklich löschen?</string>
@@ -49,5 +51,7 @@
     <string name="pref_header_general_message">Allgemeine Angaben zur App</string>
     <string name="pref_send_to_title">Senden an</string>
     <string name="pref_send_to_message">E-mail-Adresse des Empfängers für den E-Mail-Export</string>
+    <!-- Info -->
+    <string name="lbl_app_info">Infomeldungen</string>
 
 </resources>

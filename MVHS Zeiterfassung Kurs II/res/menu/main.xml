@@ -15,6 +15,14 @@
         android:icon="@drawable/ic_menu_preferences">
         
     </item>
+    <item
+        android:id="@+id/opt_info"
+        android:title="@string/opt_info_long"
+        android:showAsAction="ifRoom"
+        android:titleCondensed="@string/opt_info_short"
+        android:icon="@drawable/ic_menu_info_details">
+        
+    </item>
     
 
 </menu>

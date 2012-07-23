@@ -98,6 +98,11 @@ public class MainActivity extends Activity {
         this.startActivity(prefs);
         break;
 
+      // Aufruf des Info-Fensters
+      case R.id.opt_info:
+        Intent info = new Intent(this, IssueActivity.class);
+        this.startActivity(info);
+
       default:
         break;
     }
