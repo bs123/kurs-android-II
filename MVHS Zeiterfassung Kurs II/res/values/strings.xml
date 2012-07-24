@@ -44,6 +44,10 @@
     <string name="dlg_confirm_message">Wollen Sie den Eintrag wirklich löschen?</string>
     <string name="dlg_cancel">Abbrechen</string>
     <string name="dlg_delete">Löschen</string>
+    <string name="dlg_position_title">GPS ausgeschatet</string>
+    <string name="dlg_position_message">Wollen Sie GPS einschalten?</string>
+    <string name="dlg_yes">Ja</string>
+    <string name="dlg_no">Nein</string>
     <!-- Ausnahmen -->
     <string name="illegal_uri">Diese URI ist mit diesem ContentProvider nicht erlaubt.</string>
     <!-- App Einstellungen -->
