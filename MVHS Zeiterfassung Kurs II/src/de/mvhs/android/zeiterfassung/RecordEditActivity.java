@@ -1,5 +1,6 @@
 package de.mvhs.android.zeiterfassung;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -13,21 +14,27 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import de.mvhs.android.zeiterfassung.db.DBHelper;
 import de.mvhs.android.zeiterfassung.db.WorkTimeContentProvider;
@@ -43,6 +50,9 @@ public class RecordEditActivity extends Activity implements LocationListener {
   private Date                                     _TempStartTime;
   private Date                                     _EndTime             = null;
   private LocationManager                          _LocationManager     = null;
+  private final static int                         _CAMERA_REQUEST_CODE = 1;
+  private final static int                         _GALERY_REQUEST_CODE = 2;
+  private Bitmap                                   _Image               = null;
   private Date                                     _TempEndTime;
   private WorktimeTable                            _Table               = new WorktimeTable(this);
   private static final DateFormat                  _TFmedium            = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
@@ -108,6 +118,7 @@ public class RecordEditActivity extends Activity implements LocationListener {
     EditText position = (EditText) findViewById(R.id.txt_position);
     Button searchContact = (Button) findViewById(R.id.cmd_select_contact);
     Button searchPosition = (Button) findViewById(R.id.cmd_select_position);
+    ImageView imageView = (ImageView) findViewById(R.id.img_view);
 
     // Initialisierung der Elemente
     startTime.setKeyListener(null);
@@ -134,6 +145,11 @@ public class RecordEditActivity extends Activity implements LocationListener {
       if (!data.isNull(data.getColumnIndex(WorktimeTable.COLUMN_POSITION))) {
         _GPSPosition = data.getString(data.getColumnIndex(WorktimeTable.COLUMN_POSITION));
       }
+
+      if (!data.isNull(data.getColumnIndex(WorktimeTable.COLUMN_PICTURE))) {
+        byte[] image = data.getBlob(data.getColumnIndex(WorktimeTable.COLUMN_PICTURE));
+        _Image = BitmapFactory.decodeByteArray(image, 0, image.length);
+      }
     }
 
     // Inhalte setzen
@@ -141,6 +157,7 @@ public class RecordEditActivity extends Activity implements LocationListener {
     endTime.setText(_EndTime != null ? _TFmedium.format(_EndTime) : "");
     contact.setText(_ContactName);
     position.setText(_GPSPosition);
+    imageView.setImageBitmap(_Image);
 
     startTime.setOnClickListener(new OnClickListener() {
 
@@ -173,8 +190,26 @@ public class RecordEditActivity extends Activity implements LocationListener {
     searchPosition.setOnClickListener(new OnClickListener() {
 
       @Override
-      public void onClick(View v) {
+      public void onClick(View view) {
         runSearchPosition();
+      }
+    });
+
+    // Kamera über Intent aufrufen
+    imageView.setOnClickListener(new OnClickListener() {
+
+      @Override
+      public void onClick(View view) {
+        runTakePicture();
+      }
+    });
+
+    // Bildergalerie über Intent aufrufen
+    imageView.setOnLongClickListener(new OnLongClickListener() {
+
+      @Override
+      public boolean onLongClick(View view) {
+        return runSelectPicture();
       }
     });
   }
@@ -247,6 +282,12 @@ public class RecordEditActivity extends Activity implements LocationListener {
         values.put(WorktimeTable.COLUMN_END_TIME, DBHelper.DB_DATE_FORMAT.format(_EndTime));
         values.put(WorktimeTable.COLUMN_CONTACT_NAME, contact.getText().toString());
         values.put(WorktimeTable.COLUMN_POSITION, position.getText().toString());
+        if (_Image != null) {
+          // Konvertierung in ByArray, um in DB speichern zu können
+          ByteArrayOutputStream baos = new ByteArrayOutputStream();
+          _Image.compress(Bitmap.CompressFormat.JPEG, 75, baos);
+          values.put(WorktimeTable.COLUMN_PICTURE, baos.toByteArray());
+        }
         getContentResolver().update(WorkTimeContentProvider.CONTENT_URI_WORK_TIME, values, WorktimeTable.COLUMN_ID + "=?",
             new String[] { String.valueOf(_ID) });
         this.finish();
@@ -256,6 +297,46 @@ public class RecordEditActivity extends Activity implements LocationListener {
         break;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    ImageView imageView = (ImageView) findViewById(R.id.img_view);
+    // Bild kommt von der Kamera
+    if (requestCode == _CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      if (_Image != null) {
+        // Verwerfen des aktuellen Bildes
+        _Image.recycle();
+      }
+
+      // Bild aus dem Rückgabewert des Intents auslesen
+      _Image = (Bitmap) data.getExtras().get("data");
+      imageView.setImageBitmap(_Image);
+    }
+    // Bild kommt aus der Galerie
+    else if (requestCode == _GALERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      Uri selectedImage = data.getData();
+      String[] filePathColumn = new String[] { MediaStore.Images.Media.DATA };
+
+      Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+      if (cursor.moveToFirst()) {
+
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String filePath = cursor.getString(columnIndex);
+        cursor.close();
+
+        if (_Image != null) {
+          // Verwerfen des aktuellen Bildes
+          _Image.recycle();
+        }
+
+        _Image = BitmapFactory.decodeFile(filePath);
+
+        imageView.setImageBitmap(_Image);
+      }
+    }
+
+    super.onActivityResult(requestCode, resultCode, data);
   }
 
   private void onStartDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -352,17 +433,30 @@ public class RecordEditActivity extends Activity implements LocationListener {
               startActivity(settingsIntent);
             }
           }).create().show();
-    }
+    } else {
 
-    provider = _LocationManager.getBestProvider(criteria, true);
+      provider = _LocationManager.getBestProvider(criteria, true);
 
-    if (provider != null) {
-      Location location = _LocationManager.getLastKnownLocation(provider);
+      if (provider != null) {
+        Location location = _LocationManager.getLastKnownLocation(provider);
 
-      if (location != null) {
-        position.setText("Lat: " + location.getLatitude() + " - Long: " + location.getLongitude());
+        if (location != null) {
+          position.setText("Lat: " + location.getLatitude() + " - Long: " + location.getLongitude());
+        }
       }
     }
+  }
+
+  private void runTakePicture() {
+    Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+    startActivityForResult(intent, _CAMERA_REQUEST_CODE);
+  }
+
+  private boolean runSelectPicture() {
+    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    intent.setType("image/*");
+    startActivityForResult(Intent.createChooser(intent, "Foto auswählen"), _GALERY_REQUEST_CODE);
+    return true;
   }
 
   @Override

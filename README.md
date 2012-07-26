@@ -67,6 +67,9 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 2.2 Kamera
 
 ###Links###
+####Beispiel-Code####
+* [Android Camera & Gallery Example](https://github.com/tscolari/android-camera-gallery-example)
+
 ####Blogs####
 * [Vogella: JSON in Android - Tutorial](http://www.vogella.com/articles/AndroidJSON/article.html)
 * [Vogella: Android HTTP Access - Tutorial](http://www.vogella.com/articles/AndroidNetworking/article.html)
