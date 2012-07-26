@@ -1,6 +1,17 @@
 #MVHS-Android-II#
 Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs an der Münchner Volkshochschule.
 
+##Bücher##
+###Papier###
+* [Android 2: Grundlagen und Programmierung (Arno Becker, Marcus Pant](http://www.amazon.de/gp/product/3898646777?ie=UTF8&camp=3206&creative=21426&creativeASIN=3898646777&linkCode=shr&tag=webitint-21&qid=1343314214&ref_=sr_1_1&sr=8-1)
+* [Android 3: Apps entwickeln mit dem Android SDK (Thomas Künneth)](http://www.amazon.de/gp/product/3836216973?ie=UTF8&camp=3206&creative=21426&creativeASIN=3836216973&linkCode=shr&tag=webitint-21&qid=1343314360&ref_=sr_1_1&s=books&sr=1-1)
+* [Android 4: Apps entwickeln mit dem Android SDK (Thomas Künneth)](http://www.amazon.de/gp/product/3836219484?ie=UTF8&tag=webitint-21&linkCode=shr&camp=3206&creative=21426&creativeASIN=3836219484&qid=1343314437&ref_=sr_1_1&s=books&sr=1-1)
+
+###Kindle###
+* [Eclipse IDE 3.7 (Lars Vogel)](http://www.amazon.de/gp/product/B006O1J39S?ie=UTF8&camp=3206&creative=21426&creativeASIN=B006O1J39S&linkCode=shr&tag=webitint-21&qid=1343314543&ref_=sr_1_3&s=digital-text&sr=1-3)
+* [Android SQLite and ContentProvider (Lars Vogel)](http://www.amazon.de/gp/product/B006YUWEFE?ie=UTF8&camp=3206&creative=21426&creativeASIN=B006YUWEFE&linkCode=shr&tag=webitint-21&qid=1343314543&ref_=sr_1_4&s=digital-text&sr=1-4)
+* [Distributed Version Control with Git (Lars Vogel)](http://www.amazon.de/gp/product/B0067QNR56?ie=UTF8&camp=3206&creative=21426&creativeASIN=B0067QNR56&linkCode=shr&tag=webitint-21&qid=1343314543&ref_=sr_1_2&s=digital-text&sr=1-2)
+
 ##Kursthemen zum Tag 1##
 1. ContentProvider
 2. Loader
@@ -60,11 +71,11 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 
 ##Kursthemen Tag 3##
 1. Internet-Kommunikation
-1.1 REST Zugriff auf GitHub Issues
-1.2 Lesen der RSS-Feeds
+ 1. REST Zugriff auf GitHub Issues
+ 2. Lesen der RSS-Feeds
 2. Sensoren
-2.1 GPS
-2.2 Kamera
+ 1. GPS
+ 2. Kamera
 
 ###Links###
 ####Beispiel-Code####
