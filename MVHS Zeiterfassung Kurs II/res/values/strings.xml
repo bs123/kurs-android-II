@@ -59,5 +59,9 @@
     <string name="pref_send_to_message">E-mail-Adresse des Empfängers für den E-Mail-Export</string>
     <!-- Info -->
     <string name="lbl_app_info">Infomeldungen</string>
-
+    <!-- ACRA -->
+    <string name="crash_toast_text">Die Zeiterfassungs-App ist abgestürzt, bitte senden Sie die Fehlermeldung an den Entwickler!</string>
+    <string name="crash_notif_ticker_text">Zeiterfassung App ist abgestürzt!</string>
+    <string name="crash_notif_title">Absturz!</string>
+    <string name="crash_dialog_comment_prompt">Bitte geben Sie die Absturzursache ein:</string>
 </resources>
