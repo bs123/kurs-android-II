@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -21,13 +20,15 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
-public class IssueActivity extends Activity {
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+public class IssueActivity extends SherlockActivity {
   private WebView     _ContentView = null;
   private ProgressBar _Progress    = null;
 
@@ -49,8 +50,8 @@ public class IssueActivity extends Activity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    this.getActionBar().setHomeButtonEnabled(true);
-    this.getActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setHomeButtonEnabled(true);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     return super.onCreateOptionsMenu(menu);
   }
 

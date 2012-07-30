@@ -8,7 +8,6 @@ import java.util.Date;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -27,7 +26,6 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -37,13 +35,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
+
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.mvhs.android.zeiterfassung.OnRecordChangedListener;
 import de.mvhs.android.zeiterfassung.R;
 import de.mvhs.android.zeiterfassung.db.DBHelper;
 import de.mvhs.android.zeiterfassung.db.WorkTimeContentProvider;
 import de.mvhs.android.zeiterfassung.db.WorktimeTable;
 
-public class RecordEditFragment extends Fragment implements LocationListener, OnRecordChangedListener {
+public class RecordEditFragment extends SherlockFragment implements LocationListener, OnRecordChangedListener {
   // Variablen
   public static final String                       ID_KEY               = "ID";
   public static final String                       READONLY_KEY         = "readonly";

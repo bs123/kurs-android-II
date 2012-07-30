@@ -1,13 +1,14 @@
 package de.mvhs.android.zeiterfassung;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
-public class RecordEditActivity extends Activity {
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
+public class RecordEditActivity extends SherlockFragmentActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +18,10 @@ public class RecordEditActivity extends Activity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater inflater = getMenuInflater();
+    MenuInflater inflater = getSupportMenuInflater();
     inflater.inflate(R.menu.save_cancel_delete, menu);
-    this.getActionBar().setHomeButtonEnabled(true);
-    this.getActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setHomeButtonEnabled(true);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     return super.onCreateOptionsMenu(menu);
   }
 

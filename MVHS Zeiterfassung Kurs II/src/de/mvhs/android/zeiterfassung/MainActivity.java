@@ -3,22 +3,24 @@ package de.mvhs.android.zeiterfassung;
 import java.text.DateFormat;
 import java.util.Date;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.mvhs.android.zeiterfassung.db.DBHelper;
 import de.mvhs.android.zeiterfassung.db.WorkTimeContentProvider;
 import de.mvhs.android.zeiterfassung.db.WorktimeTable;
 
-public class MainActivity extends Activity {
+public class MainActivity extends SherlockActivity {
   private static final DateFormat _TFmedium = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
 
   /** Called when the activity is first created. */
@@ -77,7 +79,7 @@ public class MainActivity extends Activity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater inflater = this.getMenuInflater();
+    MenuInflater inflater = this.getSupportMenuInflater();
     inflater.inflate(R.menu.main, menu);
 
     return super.onCreateOptionsMenu(menu);

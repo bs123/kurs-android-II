@@ -1,14 +1,16 @@
 package de.mvhs.android.zeiterfassung;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.mvhs.android.zeiterfassung.fragments.RecordEditFragment;
 
-public class RecordListActivity extends Activity implements OnRecordSelectedListener {
+public class RecordListActivity extends SherlockFragmentActivity implements OnRecordSelectedListener {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -18,8 +20,8 @@ public class RecordListActivity extends Activity implements OnRecordSelectedList
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     // Nutzen des App-Icons als Home-Button
-    getActionBar().setHomeButtonEnabled(true);
-    getActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setHomeButtonEnabled(true);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -40,7 +42,7 @@ public class RecordListActivity extends Activity implements OnRecordSelectedList
 
   @Override
   public void onRecordSelected(long id) {
-    Fragment details = getFragmentManager().findFragmentById(R.id.frag_edit);
+    Fragment details = getSupportFragmentManager().findFragmentById(R.id.frag_edit);
     // Querformat und Details sind sichtbar
     if (details != null && details.isAdded() && details instanceof OnRecordChangedListener) {
       ((OnRecordChangedListener) details).onRecordChanged(id, true);

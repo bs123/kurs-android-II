@@ -4,16 +4,15 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListFragment;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
-import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -22,6 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.actionbarsherlock.app.SherlockListFragment;
+
 import de.mvhs.android.zeiterfassung.AppPreferenceFragment;
 import de.mvhs.android.zeiterfassung.CSVExporter;
 import de.mvhs.android.zeiterfassung.OnRecordSelectedListener;
@@ -31,7 +33,7 @@ import de.mvhs.android.zeiterfassung.db.WorkTimeContentProvider;
 import de.mvhs.android.zeiterfassung.db.WorktimeCursorAdapter;
 import de.mvhs.android.zeiterfassung.db.WorktimeTable;
 
-public class RecordListFragment extends ListFragment implements LoaderCallbacks<Cursor> {
+public class RecordListFragment extends SherlockListFragment implements LoaderCallbacks<Cursor> {
   // Loader ID für die Liste
   private final static int         _LOADER         = 1;
   // Loader ID für den Export

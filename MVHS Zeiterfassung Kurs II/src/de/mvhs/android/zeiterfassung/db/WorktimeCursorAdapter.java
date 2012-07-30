@@ -2,10 +2,10 @@ package de.mvhs.android.zeiterfassung.db;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import de.mvhs.android.zeiterfassung.R;
 
