@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<TextView
+		android:id="@+id/lbl_start_time"
+		android:layout_width="150dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/txt_start_time"
+		android:layout_alignParentLeft="true"
+		android:text="@string/lbl_start_time" />
+
+	<EditText
+		android:id="@+id/txt_start_time"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:layout_toRightOf="@+id/lbl_start_time"
+		android:ems="10"
+		android:inputType="datetime" >
+
+		<requestFocus />
+	</EditText>
+
+	<TextView
+		android:id="@+id/lbl_end_time"
+		android:layout_width="150dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/txt_end_time"
+		android:layout_alignParentLeft="true"
+		android:text="@string/lbl_end_time" />
+
+	<EditText
+		android:id="@+id/txt_end_time"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_below="@+id/txt_start_time"
+		android:layout_toRightOf="@+id/lbl_end_time"
+		android:ems="10"
+		android:inputType="datetime" />
+
+	<TextView
+		android:id="@+id/lbl_contact_name"
+		android:layout_width="150dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/cmd_select_contact"
+		android:layout_alignParentLeft="true"
+		android:text="@string/lbl_contact" />
+
+	<Button
+		android:id="@+id/cmd_select_contact"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/txt_end_time"
+		android:layout_toRightOf="@+id/lbl_contact_name"
+		android:text="@string/cmd_select_contact" />
+
+	<EditText
+		android:id="@+id/txt_contact"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/cmd_select_contact"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@+id/cmd_select_contact"
+		android:inputType="text"
+		android:maxLines="1" />
+
+	<TextView
+		android:id="@+id/lbl_position"
+		android:layout_width="150dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/cmd_select_position"
+		android:layout_alignParentLeft="true"
+		android:text="@string/lbl_position" />
+
+	<Button
+		android:id="@+id/cmd_select_position"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/cmd_select_contact"
+		android:layout_toRightOf="@+id/lbl_position"
+		android:text="@string/cmd_select_position" />
+
+	<EditText
+		android:id="@+id/txt_position"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/cmd_select_position"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@+id/cmd_select_position"
+		android:inputType="text"
+		android:maxLines="1" />
+
+	<ImageView
+		android:id="@+id/img_view"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/cmd_select_position" />
+
+</RelativeLayout>

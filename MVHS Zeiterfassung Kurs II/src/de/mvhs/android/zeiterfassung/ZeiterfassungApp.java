@@ -1,6 +1,5 @@
 package de.mvhs.android.zeiterfassung;
 
-import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
@@ -23,7 +22,7 @@ import android.app.Application;
 public class ZeiterfassungApp extends Application {
   @Override
   public void onCreate() {
-    ACRA.init(this);
+    // ACRA.init(this);
     super.onCreate();
   }
 }
