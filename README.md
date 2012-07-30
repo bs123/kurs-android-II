@@ -105,5 +105,30 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 * [LocationManager (API Reference)](http://developer.android.com/reference/android/location/LocationManager.html)
 * [Sensor (API Reference)](http://developer.android.com/reference/android/hardware/Sensor.html)
 
+##Kursthemen Tag 4##
+1. Einbinden externer Bibliotheken (ACRA Crash Reporting)
+2. Installation von apk-Dateien auf dem Emulator
+3. Nutzung von Fragmenten
+4. Nutzung einer Kompabilitätsbibliothek (in Verbindung mit ActionBar Sherlock)
+
+###Links###
+####Externe Bibliotheken####
+* [ActionBarSherlock)(http://actionbarsherlock.com/)
+* [ACRA - Application Crash Report for Android](http://code.google.com/p/acra/)
+* [Zubhium - Beta Deployment and Crashe Analytics](https://www.zubhium.com/)
+
+####Blogs####
+* [Vogella: Android supporting different screensize](http://www.vogella.com/articles/AndroidDifferentScreensize/article.html)
+* [Vogella: Fragments](http://www.vogella.com/articles/Android/article.html#fragments)
+
+####Android Developer (Englisch)####
+* [Building a Dynamic UI with Fragments (Training)](http://developer.android.com/training/basics/fragments/index.html)
+* [Supporting Tablets and Handsets (Guide)](http://developer.android.com/guide/practices/tablets-and-handsets.html)
+* [Fragments (Guide)](http://developer.android.com/guide/components/fragments.html)
+* [Fragment (API Reference)](http://developer.android.com/reference/android/app/Fragment.html)
+* [Using the Support Library (Training)](https://developer.android.com/training/basics/fragments/support-lib.html)
+* [Support Library (Tools)](http://developer.android.com/tools/extras/support-library.html)
+
+
 ##Flattr##
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=WebDucer&url=https://github.com/WebDucer/MVHS-Android-II&title=MVHS-Android-II&language=de_DE&tags=github&category=software)
