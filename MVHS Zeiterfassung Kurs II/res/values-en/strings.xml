@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-	<!-- Globale Übersetzung -->
+    <!-- Globale Übersetzung -->
     <string name="app_name">Time Tracking</string>
-    
     <!-- Startbildschirm -->
     <string name="lbl_start_time">Start Time</string>
     <string name="lbl_end_time">End Time</string>
@@ -33,5 +32,5 @@
     <string name="dlg_confirm_message">Are you sure you want delete the record?</string>
     <string name="dlg_cancel">Cancel</string>
     <string name="dlg_delete">Delete</string>
-
+    <string name="opt_download">Download</string>
 </resources>
