@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/opt_list"
-        android:showAsAction="ifRoom"
-        android:title="@string/opt_list_long"
-        android:titleCondensed="@string/opt_list_short"
-        android:icon="@drawable/ic_menu_view">
-        
-    </item>
-    <item
-        android:id="@+id/opt_preferences"
-        android:title="@string/opt_pref_long"
-        android:titleCondensed="@string/opt_pref_short"
-        android:showAsAction="ifRoom"
-        android:icon="@drawable/ic_menu_preferences">
-        
-    </item>
-    <item
-        android:id="@+id/opt_info"
-        android:title="@string/opt_info_long"
-        android:showAsAction="ifRoom"
-        android:titleCondensed="@string/opt_info_short"
-        android:icon="@drawable/ic_menu_info_details">
-        
-    </item>
-    
+
+	<item
+		android:id="@+id/opt_list"
+		android:icon="@drawable/ic_menu_view"
+		android:showAsAction="ifRoom"
+		android:title="@string/opt_list_long"
+		android:titleCondensed="@string/opt_list_short">
+	</item>
+	<item
+		android:id="@+id/opt_preferences"
+		android:icon="@drawable/ic_menu_preferences"
+		android:showAsAction="ifRoom"
+		android:title="@string/opt_pref_long"
+		android:titleCondensed="@string/opt_pref_short">
+	</item>
+	<item
+		android:id="@+id/opt_info"
+		android:icon="@drawable/ic_menu_info_details"
+		android:showAsAction="ifRoom"
+		android:title="@string/opt_info_long"
+		android:titleCondensed="@string/opt_info_short">
+	</item>
+	<item
+		android:id="@+id/opt_download"
+		android:icon="@drawable/ic_menu_upload"
+		android:title="@string/opt_download"
+		android:titleCondensed="@string/opt_download">
+	</item>
 
 </menu>

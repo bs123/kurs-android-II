@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-	<!-- Globale Übersetzung -->
+    <!-- Globale Übersetzung -->
     <string name="app_name">Zeiterfassung</string>
-    
     <!-- Startbildschirm -->
     <string name="lbl_start_time">Startzeit</string>
     <string name="lbl_end_time">Endzeit</string>
@@ -64,4 +63,5 @@
     <string name="crash_notif_ticker_text">Zeiterfassung App ist abgestürzt!</string>
     <string name="crash_notif_title">Absturz!</string>
     <string name="crash_dialog_comment_prompt">Bitte geben Sie die Absturzursache ein:</string>
+    <string name="opt_download">Download</string>
 </resources>

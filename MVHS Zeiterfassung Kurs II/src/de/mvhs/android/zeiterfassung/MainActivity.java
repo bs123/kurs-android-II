@@ -1,15 +1,22 @@
 package de.mvhs.android.zeiterfassung;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Messenger;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -19,9 +26,23 @@ import com.actionbarsherlock.view.MenuItem;
 import de.mvhs.android.zeiterfassung.db.DBHelper;
 import de.mvhs.android.zeiterfassung.db.WorkTimeContentProvider;
 import de.mvhs.android.zeiterfassung.db.WorktimeTable;
+import de.mvhs.android.zeiterfassung.services.DownloadService;
 
 public class MainActivity extends SherlockActivity {
   private static final DateFormat _TFmedium = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
+
+  // Händler für die Nachrichtenübermittlung vom Service
+  private Handler                 handler   = new Handler() {
+                                              public void handleMessage(Message message) {
+                                                Object path = message.obj;
+                                                if (message.arg1 == RESULT_OK && path != null) {
+                                                  Toast.makeText(MainActivity.this, "Downloaded" + path.toString(), Toast.LENGTH_LONG).show();
+                                                } else {
+                                                  Toast.makeText(MainActivity.this, "Download failed.", Toast.LENGTH_LONG).show();
+                                                }
+
+                                              };
+                                            };
 
   /** Called when the activity is first created. */
   @Override
@@ -104,6 +125,19 @@ public class MainActivity extends SherlockActivity {
       case R.id.opt_info:
         Intent info = new Intent(this, IssueActivity.class);
         this.startActivity(info);
+
+      case R.id.opt_download:
+        Intent intent = new Intent(this, DownloadService.class);
+        // Create a new Messenger for the communication back
+        Messenger messenger = new Messenger(handler);
+        intent.putExtra("MESSENGER", messenger);
+        File externalStorage = Environment.getExternalStorageDirectory();
+        String exportPath = AppPreferenceFragment.getPreferences(this).getString("export_path", "export/mvhs");
+        File downloadFile = new File(externalStorage, exportPath + "/download.pdf");
+        intent.setData(Uri.parse(downloadFile.getPath()));
+        intent.putExtra("urlpath", "http://cloud.github.com/downloads/WebDucer/MVHS-Android-II/Versionsstrategien.pdf");
+        startService(intent);
+        break;
 
       default:
         break;
