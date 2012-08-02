@@ -107,13 +107,12 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 
 ##Kursthemen Tag 4##
 1. Einbinden externer Bibliotheken (ACRA Crash Reporting)
-2. Installation von apk-Dateien auf dem Emulator
-3. Nutzung von Fragmenten
-4. Nutzung einer Kompabilitätsbibliothek (in Verbindung mit ActionBar Sherlock)
+2. Nutzung von Fragmenten
+3. Nutzung einer Kompabilitätsbibliothek (in Verbindung mit ActionBar Sherlock)
 
 ###Links###
 ####Externe Bibliotheken####
-* [ActionBarSherlock)(http://actionbarsherlock.com/)
+* [ActionBarSherlock](http://actionbarsherlock.com/)
 * [ACRA - Application Crash Report for Android](http://code.google.com/p/acra/)
 * [Zubhium - Beta Deployment and Crashe Analytics](https://www.zubhium.com/)
 
@@ -129,6 +128,38 @@ Dieses Projet beinhaltet den Code und die Kursunterlagen zu dem 2. Android Kurs 
 * [Using the Support Library (Training)](https://developer.android.com/training/basics/fragments/support-lib.html)
 * [Support Library (Tools)](http://developer.android.com/tools/extras/support-library.html)
 
+##Kursthemen Tag 5##
+1. Versionsstrategien
+2. Installation von apk-Dateien auf dem Emulator
+3. Services
+
+###Links###
+####Bücher####
+* [Distributed Version Control with Git (Lars Vogel)](http://www.amazon.de/gp/product/B0067QNR56?ie=UTF8&camp=3206&creative=21426&creativeASIN=B0067QNR56&linkCode=shr&tag=webitint-21&qid=1343887213&ref_=sr_1_3&s=digital-text&sr=1-3)
+* [Pro Git (Scott Chacon)](http://www.amazon.de/gp/product/B004TTXLGI?ie=UTF8&camp=3206&creative=21426&creativeASIN=B004TTXLGI&linkCode=shr&tag=webitint-21&qid=1343887262&ref_=sr_1_1&s=digital-text&sr=1-1)
+* [Pro Git (Scott Chacon - HTML Version)](http://git-scm.com/book)
+
+####Blogs####
+* [Abstractivate: the skinny on git-flow](http://blog.jessitron.com/2012/07/skinny-on-git-flow.html)
+* [nvie: A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
+* [Vogella: Git Tutorial](http://www.vogella.com/articles/Git/article.html)
+* [Vogella: Git with Eclipse (EGit) - Tutorial](http://www.vogella.com/articles/EGit/article.html)
+* [Vogella: Android Service Tutorial](http://www.vogella.com/articles/AndroidServices/article.html)
+* [Vogella: Android BroadcastReceiver Tutorial](http://www.vogella.com/articles/AndroidBroadcastReceiver/article.html)
+
+####Android Developer (Englisch)####
+* [Services (Guide)](http://developer.android.com/guide/components/services.html)
+* [Service (API Reference)](http://developer.android.com/reference/android/app/Service.html)
+* [BroadcastReceiver (API Reference)](http://developer.android.com/reference/android/content/BroadcastReceiver.html)
+
+####Versionierungstools####
+#####Windows#####
+* [Git Extensions](http://code.google.com/p/gitextensions/)
+* [SmartGit](http://www.syntevo.com/smartgit/index.html)
+
+#####Apple OS X#####
+* [SourceTree](http://www.sourcetreeapp.com/)
+* [SmartGit](http://www.syntevo.com/smartgit/index.html)
 
 ##Flattr##
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=WebDucer&url=https://github.com/WebDucer/MVHS-Android-II&title=MVHS-Android-II&language=de_DE&tags=github&category=software)
