@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">Time Tracking</string>
+    <string name="title_activity_main">Time Tracking</string>
+    <string name="lbl_startzeit">Start Time:</string>
+    <string name="lbl_endzeit">End Time:</string>
+    <string name="cmd_starten">Start</string>
+    <string name="cmd_beenden">End</string>
+
+</resources>

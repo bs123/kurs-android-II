@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <EditTextPreference android:key="eport_path"
+         android:summary="Geben Sie den Export-Verzeichnis an!"
+          android:title="Exportverzeichnis"
+           android:dialogTitle="Exportverzeichnis"
+           android:dialogMessage="Geben Sie den Export-Verzeichnis an!"
+           android:defaultValue="mnt/sdcard/export"/>
+    
+
+</PreferenceScreen>
