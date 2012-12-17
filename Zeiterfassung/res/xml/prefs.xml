@@ -6,6 +6,7 @@
            android:dialogTitle="Exportverzeichnis"
            android:dialogMessage="Geben Sie den Export-Verzeichnis an!"
            android:defaultValue="mnt/sdcard/export"/>
+    <EditTextPreference android:key="send_to" android:title="E-Mail Export" android:summary="E-Mail-Adresse, an die die CSV-Datei geschickt werden soll." android:dialogMessage="E-Mail-Adresse, an die die CSV Datei geschickt werden soll." android:dialogTitle="E-Mail Export"/>
     
 
 </PreferenceScreen>

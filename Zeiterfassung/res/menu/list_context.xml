@@ -3,6 +3,7 @@
     <item android:id="@+id/ctx_edit" android:title="@string/ctx_edit"></item>
     <item android:id="@+id/ctx_delete" android:title="@string/ctx_delete"></item>
     <item android:id="@+id/ctx_export" android:title="@string/ctx_export"></item>
+    <item android:id="@+id/ctx_export_mail" android:title="Per E-Mail senden"></item>
     
 
 </menu>

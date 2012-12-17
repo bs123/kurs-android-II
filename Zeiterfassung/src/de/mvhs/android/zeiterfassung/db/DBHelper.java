@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 	// Konstanten
 	private final static String DB_NAME = "zeiterfassung1b.db";
-	private final static int DB_VERSION = 1;
+	private final static int DB_VERSION = 2;
 
 	public DBHelper(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
@@ -20,8 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		ZeitTabelle.DropTable(db);
-		onCreate(db);
+		ZeitTabelle.UpdateTable(db, oldVersion, newVersion);
 	}
 
 }
