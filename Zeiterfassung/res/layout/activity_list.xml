@@ -3,50 +3,10 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent" >
 
-	<TextView
-		android:id="@+id/start_column"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentTop="true"
-		android:layout_toLeftOf="@+id/center_helper"
-		android:gravity="center"
-		android:padding="2dp"
-		android:text="@string/col_start"
-		android:textStyle="bold" />
-
-	<View
-		android:id="@+id/center_helper"
-		android:layout_width="2dp"
-		android:layout_height="wrap_content"
-		android:layout_alignBottom="@+id/start_column"
-		android:layout_alignParentTop="true"
-		android:layout_centerHorizontal="true"
-		android:background="@android:color/darker_gray" />
-
-	<TextView
-		android:id="@+id/ende_column"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
-		android:layout_toRightOf="@+id/center_helper"
-		android:gravity="center"
-		android:padding="2dp"
-		android:text="@string/col_ende"
-		android:textStyle="bold" />
-
-	<View
-		android:id="@+id/h_ruler"
-		android:layout_width="match_parent"
-		android:layout_height="4dp"
-		android:layout_below="@+id/start_column"
-		android:background="@android:color/darker_gray" />
-
-	<ListView
-		android:id="@android:id/list"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_below="@+id/h_ruler" />
+	<fragment
+	    android:name="de.mvhs.android.zeiterfassung.fragments.AuflistungFragment"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    class="de.mvhs.android.zeiterfassung.fragments.AuflistungFragment" />
 
 </RelativeLayout>
