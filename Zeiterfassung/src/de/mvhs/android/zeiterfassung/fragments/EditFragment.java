@@ -29,14 +29,17 @@ import android.widget.TimePicker;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.mvhs.android.zeiterfassung.Intefaces.OnRecordChangedListener;
 import de.mvhs.android.zeiterfassung.R;
 import de.mvhs.android.zeiterfassung.db.ZeitContentProvider;
 import de.mvhs.android.zeiterfassung.db.ZeitTabelle;
 
-public class EditFragment extends SherlockFragment {
+public class EditFragment extends SherlockFragment implements
+		OnRecordChangedListener {
 	/* Klassenvariablen */
 	public final static String KEY_ID = "key_id";
 	private long _ID = -1;
+	private boolean _ReadOnly = false;
 	private Date _StartDate = null;
 	private Date _EndDate = null;
 	private DateFormat _DF = DateFormat.getDateInstance(SimpleDateFormat.SHORT);
@@ -279,6 +282,13 @@ public class EditFragment extends SherlockFragment {
 						_KontaktName.setText(data.getString(data
 								.getColumnIndex(ZeitTabelle.KONTAKT)));
 					}
+
+					// Readonly Auswertung
+					_EndDatum.setEnabled(!_ReadOnly);
+					_EndZeit.setEnabled(!_ReadOnly);
+					_StartDatum.setEnabled(!_ReadOnly);
+					_StartZeit.setEnabled(!_ReadOnly);
+
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -379,4 +389,9 @@ public class EditFragment extends SherlockFragment {
 		builder.create().show();
 	}
 
+	public void onRecordChanged(long id, boolean readOnly) {
+		_ID = id;
+		_ReadOnly = readOnly;
+		loadData();
+	}
 }

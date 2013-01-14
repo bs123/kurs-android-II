@@ -171,6 +171,11 @@ public class MainActivity extends SherlockActivity {
 			startActivity(prefIntent);
 			break;
 
+		case R.id.opt_issues:
+			Intent issuesIntent = new Intent(this, IssuesActivity.class);
+			startActivity(issuesIntent);
+			break;
+
 		default:
 			break;
 		}

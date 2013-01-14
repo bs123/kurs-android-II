@@ -18,12 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 
 import de.mvhs.android.zeiterfassung.CSVExporter;
 import de.mvhs.android.zeiterfassung.EditActivity;
 import de.mvhs.android.zeiterfassung.EinstellungenActivity;
+import de.mvhs.android.zeiterfassung.Intefaces.OnRecordSelectedListener;
 import de.mvhs.android.zeiterfassung.R;
 import de.mvhs.android.zeiterfassung.db.ZeitContentProvider;
 import de.mvhs.android.zeiterfassung.db.ZeitTabelle;
@@ -221,6 +223,13 @@ public class AuflistungFragment extends SherlockListFragment implements
 
 		default:
 			break;
+		}
+	}
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		if (getActivity() instanceof OnRecordSelectedListener) {
+			((OnRecordSelectedListener) getActivity()).onRecordSelected(id);
 		}
 	}
 }
