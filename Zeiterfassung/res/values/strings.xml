@@ -27,5 +27,12 @@
 	<string name="delete_confirmation">Wollen Sie den Datensatz wirklich löschen?</string>
 	<string name="title_export">Exportiere ..</string>
 	<string name="export_message">Daten werden auf SD-Karten exportiet!</string>
+	
+	<!-- ACRA -->
+	<string name="acra_notif_ticker_text">Zeiterfassung App ist abgestürzt!</string>
+	<string name="acra_notif_title">Crash Report</string>
+	<string name="acra_dialog_comment">Bitte geben Sie die Absturzursache an:</string>
+	<string name="acra_toast_text">Die Zeiterfassung App ist abgestürzt.
+	    Bitte senden Sie die Fehlermeldung an den Entwickler!</string>
 
 </resources>

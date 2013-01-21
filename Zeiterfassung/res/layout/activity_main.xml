@@ -41,4 +41,16 @@
         android:layout_height="wrap_content"
         android:text="@string/cmd_beenden" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Position:" />
+
+    <TextView
+        android:id="@+id/txt_gps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
 </LinearLayout>
