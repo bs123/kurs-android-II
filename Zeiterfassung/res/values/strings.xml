@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Zeiterfassung</string>
+	<string name="StartLabel">Startzeit:</string>
+	<string name="EndLabel">Endzeit:</string>
+	<string name="StartButton">START</string>
+	<string name="EndButton">BEENDEN</string>
+	<string name="PauseLabel">Pause:</string>
+	<string name="CommentLabel">Kommentar:</string>
+	<string name="mnu_list">Auflistung</string>
+	<string name="col_start">Start</string>
+	<string name="col_end">Ende</string>
+	<string name="mnu_add">Hinzufügen</string>
+	<string name="mnu_edit">Bearbeiten</string>
+	<string name="mnu_export">Export</string>
+	<string name="mnu_save">Speichern</string>
+	<string name="mnu_cancel">Abbrechen</string>
+	<string name="mnu_delete">Löschen</string>
+
+</resources>
