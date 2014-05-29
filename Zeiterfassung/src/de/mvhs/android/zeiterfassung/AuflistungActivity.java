@@ -21,160 +21,151 @@ import de.mvhs.android.zeiterfassung.db.ZeitContracts;
 import de.mvhs.android.zeiterfassung.db.ZeitContracts.Zeit;
 
 public class AuflistungActivity extends ActionBarActivity {
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_list);
+    setContentView(R.layout.activity_list);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setDisplayShowHomeEnabled(true);
-	}
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayShowHomeEnabled(true);
+  }
 
-	@Override
-	protected void onStart() {
-		super.onStart();
+  @Override
+  protected void onStart() {
+    super.onStart();
 
-		// Laden der Daten
-		// -- Einen Adapter initialisieren
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-				R.layout.row_list, null, new String[] { Zeit.Columns.START,
-						Zeit.Columns.END },
-				new int[] { R.id.Text1, R.id.Text2 });
+    // Laden der Daten
+    // -- Einen Adapter initialisieren
+    SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.row_list, null, new String[] { Zeit.Columns.START, Zeit.Columns.END }, new int[] {
+        R.id.Text1, R.id.Text2 });
 
-		// new SimpleCursorAdapter(this, // Context
-		// R.layout.row_list, // Layout für die Zeile
-		// null, // Cursor Daten
-		// new String[] { ZeitContracts.Zeit.Columns.START,
-		// ZeitContracts.Zeit.Columns.END }, new int[] {
-		// R.id.Text1, R.id.Text2 }, // UI-Elemente
-		// // in denen
-		// // diese
-		// // Werte
-		// // dargestellt
-		// // werden
-		// // sollen
-		// 0);
+    // new SimpleCursorAdapter(this, // Context
+    // R.layout.row_list, // Layout für die Zeile
+    // null, // Cursor Daten
+    // new String[] { ZeitContracts.Zeit.Columns.START,
+    // ZeitContracts.Zeit.Columns.END }, new int[] {
+    // R.id.Text1, R.id.Text2 }, // UI-Elemente
+    // // in denen
+    // // diese
+    // // Werte
+    // // dargestellt
+    // // werden
+    // // sollen
+    // 0);
 
-		// Laden der Daten
-		Cursor data = getContentResolver().query(
-				ZeitContracts.Zeit.CONTENT_URI, null, null, null,
-				ZeitContracts.Zeit.Columns.START + " DESC");
-		data.setNotificationUri(getContentResolver(),
-				ZeitContracts.Zeit.CONTENT_URI);
+    // Laden der Daten
+    Cursor data = getContentResolver().query(ZeitContracts.Zeit.CONTENT_URI, null, null, null, ZeitContracts.Zeit.Columns.START + " DESC");
+    data.setNotificationUri(getContentResolver(), ZeitContracts.Zeit.CONTENT_URI);
 
-		// Zuordnung des Adapters zur Liste
-		ListView view = (ListView) findViewById(android.R.id.list);
-		view.setAdapter(adapter);
+    // Zuordnung des Adapters zur Liste
+    ListView view = (ListView) findViewById(android.R.id.list);
+    view.setAdapter(adapter);
 
-		// Daten an Adapter übergeben
-		adapter.changeCursor(data);
+    // Daten an Adapter übergeben
+    adapter.changeCursor(data);
 
-		registerForContextMenu(getListView());
-	}
+    registerForContextMenu(getListView());
+  }
 
-	private ListView getListView() {
-		return (ListView) findViewById(android.R.id.list);
-	}
+  private ListView getListView() {
+    return (ListView) findViewById(android.R.id.list);
+  }
 
-	@Override
-	protected void onStop() {
-		unregisterForContextMenu(getListView());
-		super.onStop();
-	}
+  @Override
+  protected void onStop() {
+    unregisterForContextMenu(getListView());
+    super.onStop();
+  }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_export, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_export, menu);
+    return super.onCreateOptionsMenu(menu);
+  }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			this.finish();
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        this.finish();
 
-			break;
+        break;
 
-		case R.id.mnu_export:
-			// Laden der Daten aus der Datenbank
-			Cursor exportData = getContentResolver().query(
-					ZeitContracts.Zeit.CONTENT_URI, null, null, null, null);
+      case R.id.mnu_export:
+        // Laden der Daten aus der Datenbank
+        Cursor exportData = getContentResolver().query(ZeitContracts.Zeit.CONTENT_URI, null, null, null, null);
 
-			// Exporter initialisieren
-			CsvAsyncTaskExporter exporter = new CsvAsyncTaskExporter(this);
+        // Exporter initialisieren
+        CsvAsyncTaskExporter exporter = new CsvAsyncTaskExporter(this);
 
-			// Export starten
-			exporter.execute(exportData);
-			break;
+        // Export starten
+        exporter.execute(exportData);
+        break;
 
-		default:
-			break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+      default:
+        break;
+    }
+    return super.onOptionsItemSelected(item);
+  }
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		if (v.getId() == android.R.id.list) {
-			getMenuInflater().inflate(R.menu.list_edit_menu, menu);
-		}
+  @Override
+  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+    if (v.getId() == android.R.id.list) {
+      getMenuInflater().inflate(R.menu.list_edit_menu, menu);
+    }
 
-		super.onCreateContextMenu(menu, v, menuInfo);
-	}
+    super.onCreateContextMenu(menu, v, menuInfo);
+  }
 
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		// Bestimmen des ausgewählten Eintrages
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
+  @Override
+  public boolean onContextItemSelected(MenuItem item) {
+    // Bestimmen des ausgewählten Eintrages
+    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
-		switch (item.getItemId()) {
-		case R.id.mnu_edit:
-			Intent editIntent = new Intent(this, EditActivity.class);
-			// ID an das Intent mit übergeben
-			editIntent.putExtra(EditActivity.ID_KEY, info.id);
-			startActivity(editIntent);
+    switch (item.getItemId()) {
+      case R.id.mnu_edit:
+        Intent editIntent = new Intent(this, EditActivity.class);
+        // ID an das Intent mit übergeben
+        editIntent.putExtra(EditActivity.ID_KEY, info.id);
+        startActivity(editIntent);
 
-			return true;
+        return true;
 
-		case R.id.mnu_delete:
-			delete(info.id);
+      case R.id.mnu_delete:
+        delete(info.id);
 
-			return true;
+        return true;
 
-		default:
-			return super.onContextItemSelected(item);
-		}
-	}
+      default:
+        return super.onContextItemSelected(item);
+    }
+  }
 
-	private void delete(final long id) {
+  private void delete(final long id) {
 
-		// Aufbau eines Dialoges
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Löschen ...") // Titel des Dialoges setzen
-				.setMessage("Wollen Sie den Datensatz wirklich löschen?") // Nachricht
-				// für
-				// den
-				// Benutzer
-				.setIcon(R.drawable.ic_menu_delete) // Icopn für das Dialog
-				.setPositiveButton("Löschen", new OnClickListener() {
+    // Aufbau eines Dialoges
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle("Löschen ...") // Titel des Dialoges setzen
+            .setMessage("Wollen Sie den Datensatz wirklich löschen?") // Nachricht
+            // für
+            // den
+            // Benutzer
+            .setIcon(R.drawable.ic_menu_delete) // Icopn für das Dialog
+            .setPositiveButton("Löschen", new OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Uri deleteUri = ContentUris.withAppendedId(
-								ZeitContracts.Zeit.CONTENT_URI, id);
-						getContentResolver().delete(deleteUri, null, null);
-					}
-				}) // Button für die positive
-					// Antwort
-				.setNegativeButton("Abbrechen", null); // Button zum Abbrechen
-		// der Aktion
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                Uri deleteUri = ContentUris.withAppendedId(ZeitContracts.Zeit.CONTENT_URI, id);
+                getContentResolver().delete(deleteUri, null, null);
+              }
+            }) // Button für die positive
+               // Antwort
+            .setNegativeButton("Abbrechen", null); // Button zum Abbrechen
+    // der Aktion
 
-		// Dialog anzeigen
-		builder.create().show();
-	}
+    // Dialog anzeigen
+    builder.create().show();
+  }
 
 }
