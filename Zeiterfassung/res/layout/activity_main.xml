@@ -5,45 +5,10 @@
 	android:orientation="vertical"
 	android:padding="@dimen/activity_margin" >
 
-	<TextView
-		android:id="@+id/textView1"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/StartLabel"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
-
-	<EditText
-		android:id="@+id/StartTime"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:ems="10" >
-
-		<requestFocus />
-	</EditText>
-
-	<TextView
-		android:id="@+id/textView2"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/EndLabel"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
-
-	<EditText
-		android:id="@+id/EndTime"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:ems="10" />
-
-	<Button
-		android:id="@+id/StartCommand"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/StartButton" />
-
-	<Button
-		android:id="@+id/EndCommand"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/EndButton" />
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="de.mvhs.android.zeiterfassung.TrackingFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
