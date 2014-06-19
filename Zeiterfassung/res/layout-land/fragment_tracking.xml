@@ -31,7 +31,6 @@
 		android:layout_alignParentTop="true"
 		android:layout_toRightOf="@+id/CenterHelper"
 		android:ems="10"
-		android:enabled="false"
 		android:inputType="text" >
 	</EditText>
 
@@ -53,7 +52,6 @@
 		android:layout_below="@+id/StartTime"
 		android:layout_toRightOf="@+id/CenterHelper"
 		android:ems="10"
-		android:enabled="false"
 		android:inputType="text" />
 
 	<Button
