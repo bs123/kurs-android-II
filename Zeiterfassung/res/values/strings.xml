@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<!-- ACRA -->
+	<string name="acra_toast_crash">Die App ist abgestürzt!</string>
+	
+	<!-- App -->
 	<string name="app_name">Zeiterfassung</string>
 	<string name="StartLabel">Startzeit:</string>
 	<string name="EndLabel">Endzeit:</string>

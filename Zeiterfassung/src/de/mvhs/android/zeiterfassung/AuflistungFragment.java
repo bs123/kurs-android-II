@@ -21,174 +21,202 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import de.mvhs.android.zeiterfassung.db.ZeitContracts;
 import de.mvhs.android.zeiterfassung.db.ZeitContracts.Zeit;
 
-public class AuflistungFragment extends ListFragment implements LoaderCallbacks<Cursor> {
+public class AuflistungFragment extends ListFragment implements
+		LoaderCallbacks<Cursor> {
 
-  private final static int    _LIST_LOADER_ID = 1;
-  private SimpleCursorAdapter _Adapter        = null;
+	private final static int _LIST_LOADER_ID = 1;
+	private SimpleCursorAdapter _Adapter = null;
 
-  @Override
-  public void onActivityCreated(Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 
-    setHasOptionsMenu(true);
-  }
+		setHasOptionsMenu(true);
+	}
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-    return inflater.inflate(R.layout.fragment_list, container, false);
-  }
+		return inflater.inflate(R.layout.fragment_list, container, false);
+	}
 
-  @Override
-  public void onStart() {
-    super.onStart();
+	@Override
+	public void onStart() {
+		super.onStart();
 
-    // Laden der Daten
-    // -- Einen Adapter initialisieren
-    _Adapter = new SimpleCursorAdapter(getActivity(), R.layout.row_list, null, new String[] { Zeit.Columns.START, Zeit.Columns.END }, new int[] { R.id.Text1,
-        R.id.Text2 }, SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+		// Laden der Daten
+		// -- Einen Adapter initialisieren
+		_Adapter = new SimpleCursorAdapter(getActivity(), R.layout.row_list,
+				null, new String[] { Zeit.Columns.START, Zeit.Columns.END },
+				new int[] { R.id.Text1, R.id.Text2 },
+				SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
-    // Loader starten
-    getLoaderManager().initLoader(_LIST_LOADER_ID, null, this);
+		// Loader starten
+		getLoaderManager().initLoader(_LIST_LOADER_ID, null, this);
 
-    // Zuordnung des Adapters zur Liste
-    getListView().setAdapter(_Adapter);
+		// Zuordnung des Adapters zur Liste
+		getListView().setAdapter(_Adapter);
 
-    registerForContextMenu(getListView());
-  }
+		registerForContextMenu(getListView());
 
-  @Override
-  public void onStop() {
-    unregisterForContextMenu(getListView());
-    super.onStop();
-  }
+		// Registrierung für den Listener
+		getListView().setOnItemClickListener(new OnItemClickListener() {
 
-  @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    inflater.inflate(R.menu.menu_export, menu);
-    super.onCreateOptionsMenu(menu, inflater);
-  }
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (getActivity() instanceof IRecordSelected) {
+					((IRecordSelected) getActivity()).onRecordSelected(id);
+				}
+			}
+		});
+	}
 
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.mnu_export:
-        // Laden der Daten aus der Datenbank
-        Cursor exportData = getActivity().getContentResolver().query(ZeitContracts.Zeit.CONTENT_URI, null, null, null, null);
+	@Override
+	public void onStop() {
+		unregisterForContextMenu(getListView());
+		super.onStop();
+	}
 
-        // Exporter initialisieren
-        CsvAsyncTaskExporter exporter = new CsvAsyncTaskExporter(getActivity());
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.menu_export, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
 
-        // Export starten
-        exporter.execute(exportData);
-        break;
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.mnu_export:
+			// Laden der Daten aus der Datenbank
+			Cursor exportData = getActivity().getContentResolver().query(
+					ZeitContracts.Zeit.CONTENT_URI, null, null, null, null);
 
-      default:
-        break;
-    }
-    return super.onOptionsItemSelected(item);
-  }
+			// Exporter initialisieren
+			CsvAsyncTaskExporter exporter = new CsvAsyncTaskExporter(
+					getActivity());
 
-  @Override
-  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-    if (v.getId() == android.R.id.list) {
-      getActivity().getMenuInflater().inflate(R.menu.list_edit_menu, menu);
-    }
+			// Export starten
+			exporter.execute(exportData);
+			break;
 
-    super.onCreateContextMenu(menu, v, menuInfo);
-  }
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
-  @Override
-  public boolean onContextItemSelected(MenuItem item) {
-    // Bestimmen des ausgewählten Eintrages
-    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		if (v.getId() == android.R.id.list) {
+			getActivity().getMenuInflater()
+					.inflate(R.menu.list_edit_menu, menu);
+		}
 
-    switch (item.getItemId()) {
-      case R.id.mnu_edit:
-        Intent editIntent = new Intent(getActivity(), EditActivity.class);
-        // ID an das Intent mit übergeben
-        editIntent.putExtra(EditFragment.ID_KEY, info.id);
-        startActivity(editIntent);
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
 
-        return true;
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		// Bestimmen des ausgewählten Eintrages
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
 
-      case R.id.mnu_delete:
-        delete(info.id);
+		switch (item.getItemId()) {
+		case R.id.mnu_edit:
+			Intent editIntent = new Intent(getActivity(), EditActivity.class);
+			// ID an das Intent mit übergeben
+			editIntent.putExtra(EditFragment.ID_KEY, info.id);
+			startActivity(editIntent);
 
-        return true;
+			return true;
 
-      default:
-        return super.onContextItemSelected(item);
-    }
-  }
+		case R.id.mnu_delete:
+			delete(info.id);
 
-  private void delete(final long id) {
+			return true;
 
-    // Aufbau eines Dialoges
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    builder.setTitle("Löschen ...") // Titel des Dialoges setzen
-            .setMessage("Wollen Sie den Datensatz wirklich löschen?") // Nachricht
-            // für
-            // den
-            // Benutzer
-            .setIcon(R.drawable.ic_menu_delete) // Icopn für das Dialog
-            .setPositiveButton("Löschen", new OnClickListener() {
+		default:
+			return super.onContextItemSelected(item);
+		}
+	}
 
-              @Override
-              public void onClick(DialogInterface dialog, int which) {
-                Uri deleteUri = ContentUris.withAppendedId(ZeitContracts.Zeit.CONTENT_URI, id);
-                getActivity().getContentResolver().delete(deleteUri, null, null);
-              }
-            }) // Button für die positive
-               // Antwort
-            .setNegativeButton("Abbrechen", null); // Button zum Abbrechen
-    // der Aktion
+	private void delete(final long id) {
 
-    // Dialog anzeigen
-    builder.create().show();
-  }
+		// Aufbau eines Dialoges
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle("Löschen ...") // Titel des Dialoges setzen
+				.setMessage("Wollen Sie den Datensatz wirklich löschen?") // Nachricht
+				// für
+				// den
+				// Benutzer
+				.setIcon(R.drawable.ic_menu_delete) // Icopn für das Dialog
+				.setPositiveButton("Löschen", new OnClickListener() {
 
-  @Override
-  public Loader<Cursor> onCreateLoader(int loaderId, Bundle extras) {
-    CursorLoader loader = null;
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Uri deleteUri = ContentUris.withAppendedId(
+								ZeitContracts.Zeit.CONTENT_URI, id);
+						getActivity().getContentResolver().delete(deleteUri,
+								null, null);
+					}
+				}) // Button für die positive
+					// Antwort
+				.setNegativeButton("Abbrechen", null); // Button zum Abbrechen
+		// der Aktion
 
-    switch (loaderId) {
-      case _LIST_LOADER_ID:
-        loader = new CursorLoader(getActivity(), ZeitContracts.Zeit.CONTENT_URI, null, null, null, ZeitContracts.Zeit.Columns.START + " DESC");
-        break;
+		// Dialog anzeigen
+		builder.create().show();
+	}
 
-      default:
-        break;
-    }
-    return loader;
-  }
+	@Override
+	public Loader<Cursor> onCreateLoader(int loaderId, Bundle extras) {
+		CursorLoader loader = null;
 
-  @Override
-  public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-    switch (loader.getId()) {
-      case _LIST_LOADER_ID:
-        data.setNotificationUri(getActivity().getContentResolver(), ZeitContracts.Zeit.CONTENT_URI);
-        _Adapter.swapCursor(data);
-        break;
+		switch (loaderId) {
+		case _LIST_LOADER_ID:
+			loader = new CursorLoader(getActivity(),
+					ZeitContracts.Zeit.CONTENT_URI, null, null, null,
+					ZeitContracts.Zeit.Columns.START + " DESC");
+			break;
 
-      default:
-        break;
-    }
-  }
+		default:
+			break;
+		}
+		return loader;
+	}
 
-  @Override
-  public void onLoaderReset(Loader<Cursor> loader) {
-    switch (loader.getId()) {
-      case _LIST_LOADER_ID:
-        _Adapter.swapCursor(null);
-        break;
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		switch (loader.getId()) {
+		case _LIST_LOADER_ID:
+			data.setNotificationUri(getActivity().getContentResolver(),
+					ZeitContracts.Zeit.CONTENT_URI);
+			_Adapter.swapCursor(data);
+			break;
 
-      default:
-        break;
-    }
-  }
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		switch (loader.getId()) {
+		case _LIST_LOADER_ID:
+			_Adapter.swapCursor(null);
+			break;
+
+		default:
+			break;
+		}
+	}
 }

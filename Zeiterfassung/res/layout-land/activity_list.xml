@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    android:weightSum="2" >
+
+    <fragment
+        android:id="@+id/RecordListFragment"
+        android:name="de.mvhs.android.zeiterfassung.AuflistungFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginRight="5dp" />
+
+    <fragment
+        android:id="@+id/RecordEditFragment"
+        android:name="de.mvhs.android.zeiterfassung.EditFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" 
+        android:layout_marginLeft="5dp"/>
+
+</LinearLayout>
