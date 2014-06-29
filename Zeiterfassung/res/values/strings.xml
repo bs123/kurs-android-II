@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
 	<!-- ACRA -->
 	<string name="acra_toast_crash">Die App ist abgestürzt!</string>
-	
+	<string name="crash_toast_text">Die App Zeiterfassung ist abgestürzt!</string>
+	<string name="crash_dialog_title">Zeiterfassung ist abgestürzt</string>
+	<string name="crash_dialog_text">Ein unerwarteter Fehler ist aufgetretten und die App ist abgestürzt. Bitte helfen Sie und uns
+		den Fehler zu korrigieren, in dem Sie diesem Absturz-Bericht an uns senden.</string>
+	<string name="crash_dialog_comment_prompt">Sie können einen eigenen Kommentar unten hinzufügen:</string>
+	<string name="crash_dialog_ok_toast">Vielen Dank!</string>
+
 	<!-- App -->
 	<string name="app_name">Zeiterfassung</string>
 	<string name="StartLabel">Startzeit:</string>
