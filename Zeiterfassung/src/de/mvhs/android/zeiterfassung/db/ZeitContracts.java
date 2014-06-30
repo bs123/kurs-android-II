@@ -77,6 +77,16 @@ public final class ZeitContracts {
 			 * Spaltenname für die Kommentar-Spalte
 			 */
 			public final static String COMMENT = "comment";
+
+			/**
+			 * Breitengrad aus der GPS Positionierung
+			 */
+			public final static String LATITUDE = "lat";
+
+			/**
+			 * Längengrad aus der GPS Positionierung
+			 */
+			public final static String LANGTITUDE = "lan";
 		}
 
 		/**

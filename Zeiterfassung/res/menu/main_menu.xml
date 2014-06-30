@@ -2,15 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-	<item
-		android:id="@+id/mnu_list"
-		android:icon="@drawable/ic_menu_sort_by_size"
-		app:showAsAction="ifRoom|withText"
-		android:title="@string/mnu_list"/>
-	<item
-		android:id="@+id/mnu_add"
-		android:icon="@drawable/ic_menu_add"
-		app:showAsAction="ifRoom|withText"
-		android:title="@string/mnu_add"/>
+    <item
+        android:id="@+id/mnu_list"
+        android:icon="@drawable/ic_menu_sort_by_size"
+        android:title="@string/mnu_list"
+        app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/mnu_add"
+        android:icon="@drawable/ic_menu_add"
+        android:title="@string/mnu_add"
+        app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/mnu_prefs"
+        android:title="@string/mnu_prefs"
+        app:showAsAction="ifRoom|withText">
+    </item>
 
 </menu>

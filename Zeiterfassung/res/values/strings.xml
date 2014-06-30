@@ -27,5 +27,10 @@
 	<string name="mnu_save">Speichern</string>
 	<string name="mnu_cancel">Abbrechen</string>
 	<string name="mnu_delete">Löschen</string>
+	<string name="prefs_log_gps_on">GPS eingeschaltet</string>
+	<string name="prefs_log_gps_off">Lokalisierung ausgeschaltet</string>
+	<string name="prefs_log_gps">GPS</string>
+	<string name="prefs_acra">ACRA</string>
+	<string name="mnu_prefs">Einstellungen</string>
 
 </resources>

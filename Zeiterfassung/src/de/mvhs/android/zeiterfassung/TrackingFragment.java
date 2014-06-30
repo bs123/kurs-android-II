@@ -6,10 +6,16 @@ import java.util.Date;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,9 +26,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import de.mvhs.android.zeiterfassung.db.ZeitContracts;
 
-public class TrackingFragment extends Fragment {
+public class TrackingFragment extends Fragment implements LocationListener {
 
 	private boolean _IsStarted = false;
 	private Button _StartCommand = null;
@@ -30,6 +37,11 @@ public class TrackingFragment extends Fragment {
 	private EditText _StartTime = null;
 	private EditText _EndTime = null;
 	private long _CurrentId = -1;
+
+	// Positionierung
+	private Location _lastLocation;
+	private LocationManager _locationManager;
+	private String _provider;
 
 	private final static String[] _SEARCH_PROJECTION = {
 			ZeitContracts.Zeit.Columns._ID, ZeitContracts.Zeit.Columns.START };
@@ -44,6 +56,29 @@ public class TrackingFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 
 		setHasOptionsMenu(true);
+
+		// LocationManager initialisieren
+		// Prüfen, ob Benutzer GPS möchte
+		SharedPreferences shared = PreferenceManager
+				.getDefaultSharedPreferences(getActivity());
+		boolean gpsIsActive = shared.getBoolean("log_gps", false);
+
+		if (gpsIsActive) {
+			_locationManager = (LocationManager) getActivity()
+					.getSystemService(Context.LOCATION_SERVICE);
+
+			_provider = LocationManager.GPS_PROVIDER;
+
+			_lastLocation = _locationManager.getLastKnownLocation(_provider);
+
+			if (_lastLocation != null) {
+				Toast.makeText(
+						getActivity(),
+						"Loaction: " + _lastLocation.getLatitude() + ", "
+								+ _lastLocation.getLongitude(),
+						Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 
 	@Override
@@ -55,6 +90,11 @@ public class TrackingFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
+
+		// Listener für Positionierung einschalten
+		if (_locationManager != null) {
+			_locationManager.requestLocationUpdates(_provider, 1000, 100, this);
+		}
 
 		// UI Elemente initialisieren
 		_StartCommand = (Button) getActivity().findViewById(R.id.StartCommand);
@@ -79,6 +119,10 @@ public class TrackingFragment extends Fragment {
 		// Click Event deregistrieren
 		_StartCommand.setOnClickListener(null);
 		_StopCommand.setOnClickListener(null);
+
+		if (_locationManager != null) {
+			_locationManager.removeUpdates(this);
+		}
 
 		super.onStop();
 	}
@@ -105,6 +149,12 @@ public class TrackingFragment extends Fragment {
 		case R.id.mnu_add:
 			Intent editIntent = new Intent(getActivity(), EditActivity.class);
 			startActivity(editIntent);
+			break;
+
+		case R.id.mnu_prefs:
+			Intent prefsIntent = new Intent(getActivity(),
+					EinstellungenActivity.class);
+			startActivity(prefsIntent);
 			break;
 
 		default:
@@ -192,6 +242,13 @@ public class TrackingFragment extends Fragment {
 			values.put(ZeitContracts.Zeit.Columns.START,
 					ZeitContracts.Converters.DB_FORMATTER.format(currentTime));
 
+			if (_lastLocation != null) {
+				values.put(ZeitContracts.Zeit.Columns.LATITUDE,
+						String.valueOf(_lastLocation.getLatitude()));
+				values.put(ZeitContracts.Zeit.Columns.LANGTITUDE,
+						String.valueOf(_lastLocation.getLongitude()));
+			}
+
 			Uri insertUri = getActivity().getContentResolver().insert(
 					ZeitContracts.Zeit.CONTENT_URI, values);
 
@@ -200,6 +257,33 @@ public class TrackingFragment extends Fragment {
 			_IsStarted = true;
 			setButtonState();
 		}
+
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		Toast.makeText(
+				getActivity(),
+				"Loaction: " + location.getLatitude() + ", "
+						+ location.getLongitude(), Toast.LENGTH_SHORT).show();
+		_lastLocation = location;
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
 
 	}
 }
