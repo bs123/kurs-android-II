@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="log_gps"
-        android:summaryOff="@string/prefs_log_gps_off"
-        android:summaryOn="@string/prefs_log_gps_on"
-        android:title="@string/prefs_log_gps" />
+	<CheckBoxPreference
+		android:defaultValue="false"
+		android:key="log_gps"
+		android:summaryOff="@string/prefs_log_gps_off"
+		android:summaryOn="@string/prefs_log_gps_on"
+		android:title="@string/prefs_log_gps" />
 
-    <PreferenceCategory android:title="@string/prefs_acra" >
-    </PreferenceCategory>
+	<PreferenceCategory android:title="@string/prefs_acra" >
+		<CheckBoxPreference
+			android:defaultValue="true"
+			android:key="acra.enable"
+			android:summaryOff="@string/pref_acra_disabled"
+			android:summaryOn="@string/pref_acra_enabled"
+			android:title="@string/pref_enable_acra" />
+	</PreferenceCategory>
 
 </PreferenceScreen>

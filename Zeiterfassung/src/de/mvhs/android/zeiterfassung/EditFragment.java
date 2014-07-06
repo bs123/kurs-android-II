@@ -3,6 +3,7 @@ package de.mvhs.android.zeiterfassung;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -11,11 +12,17 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -32,7 +40,7 @@ import de.mvhs.android.zeiterfassung.db.ZeitContracts.Converters;
 import de.mvhs.android.zeiterfassung.db.ZeitContracts.Zeit;
 import de.mvhs.android.zeiterfassung.db.ZeitContracts.Zeit.Columns;
 
-public class EditFragment extends Fragment implements IRecordSelectedListener {
+public class EditFragment extends Fragment implements IRecordSelectedListener, LocationListener {
   public final static String ID_KEY         = "ID";
   private long               _Id            = -1;
 
@@ -42,6 +50,8 @@ public class EditFragment extends Fragment implements IRecordSelectedListener {
 
   private final DateFormat   _DateFormatter = DateFormat.getDateInstance(DateFormat.SHORT);
   private final DateFormat   _TimeFormatter = DateFormat.getTimeInstance(DateFormat.SHORT);
+  private String             _Long          = null;
+  private String             _Lat           = null;
 
   private EditText           _StartDateField;
   private EditText           _StartTimeField;
@@ -49,6 +59,13 @@ public class EditFragment extends Fragment implements IRecordSelectedListener {
   private EditText           _EndTimeField;
   private EditText           _PauseField;
   private EditText           _CommentField;
+  private EditText           _Position;
+  private Button             _RefreshGps;
+
+  // Positionierung
+  private Location           _lastLocation;
+  private LocationManager    _locationManager;
+  private String             _provider;
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
@@ -75,6 +92,18 @@ public class EditFragment extends Fragment implements IRecordSelectedListener {
   public void onStart() {
     super.onStart();
 
+    // Positionierung aktivieren, falls von Benutzer gewünscht
+    SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    boolean gpsIsActive = shared.getBoolean("log_gps", false);
+
+    if (gpsIsActive && (getActivity() instanceof IRecordSelected) == false) {
+      _locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+      _provider = LocationManager.GPS_PROVIDER;
+
+      _lastLocation = _locationManager.getLastKnownLocation(_provider);
+    }
+
     // Registrierung des Events / Listeners
     _StartDateField = (EditText) getActivity().findViewById(R.id.StartDate);
     _StartTimeField = (EditText) getActivity().findViewById(R.id.StartTime);
@@ -82,6 +111,8 @@ public class EditFragment extends Fragment implements IRecordSelectedListener {
     _EndTimeField = (EditText) getActivity().findViewById(R.id.EndTime);
     _PauseField = (EditText) getActivity().findViewById(R.id.PauseDuration);
     _CommentField = (EditText) getActivity().findViewById(R.id.CommentText);
+    _Position = (EditText) getActivity().findViewById(R.id.Position);
+    _RefreshGps = (Button) getActivity().findViewById(R.id.RefreshPosition);
 
     _StartDateField.setOnLongClickListener(new OnStartDateLongClicked());
     _StartDateField.setKeyListener(null);
@@ -91,14 +122,30 @@ public class EditFragment extends Fragment implements IRecordSelectedListener {
     _EndDateFiled.setKeyListener(null);
     _EndTimeField.setOnLongClickListener(new OnEndTimeLongClicked());
     _EndTimeField.setKeyListener(null);
+    _RefreshGps.setOnClickListener(new OnRefreshGpsClicked());
 
     if (_Id > 0) {
       loadData();
+    }
+
+    // Listener für Positionierung einschalten
+    if (_locationManager != null) {
+      _locationManager.requestLocationUpdates(_provider, 1000, 100, this);
+    } else {
+      _RefreshGps.setEnabled(false);
     }
   }
 
   @Override
   public void onStop() {
+    if (_locationManager != null) {
+      _locationManager.removeUpdates(this);
+      _locationManager = null;
+      _lastLocation = null;
+    }
+
+    _RefreshGps.setOnClickListener(null);
+
     _StartDateField.setOnLongClickListener(null);
     _StartTimeField.setOnLongClickListener(null);
     _EndDateFiled.setOnLongClickListener(null);
@@ -267,6 +314,11 @@ public class EditFragment extends Fragment implements IRecordSelectedListener {
       if (!data.isNull(data.getColumnIndex(Columns.COMMENT))) {
         _CommentField.setText(data.getString(data.getColumnIndex(Columns.COMMENT)));
       }
+
+      if (!data.isNull(data.getColumnIndex(Columns.LONGTITUDE)) && !data.isNull(data.getColumnIndex(Columns.LATITUDE))) {
+        _Position.setText(String.format("Lat: %s, Long: %s", data.getString(data.getColumnIndex(Columns.LATITUDE)),
+                data.getString(data.getColumnIndex(Columns.LONGTITUDE))));
+      }
     }
   }
 
@@ -280,10 +332,10 @@ public class EditFragment extends Fragment implements IRecordSelectedListener {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.mnu_cancel:
-        if (_Id > 0) {
-          throw new NullPointerException("Hallo ACRA!");
-        }
-        // getActivity().finish();
+        // if (_Id > 0) {
+        // throw new NullPointerException("Hallo ACRA!");
+        // }
+        getActivity().finish();
         break;
 
       case R.id.mnu_delete:
@@ -341,6 +393,12 @@ public class EditFragment extends Fragment implements IRecordSelectedListener {
     values.put(Columns.PAUSE, pause);
     values.put(Columns.COMMENT, comment);
 
+    // Save new position, if definied
+    if (_Lat != null && _Long != null) {
+      values.put(Columns.LONGTITUDE, _Long);
+      values.put(Columns.LATITUDE, _Lat);
+    }
+
     if (_Id > 0) {
       // Aktualisierung des Eintrages
       Uri updateUri = ContentUris.withAppendedId(Zeit.CONTENT_URI, _Id);
@@ -373,6 +431,40 @@ public class EditFragment extends Fragment implements IRecordSelectedListener {
       _EndTimeField.setEnabled(!_readOnly);
       _CommentField.setEnabled(!_readOnly);
       _PauseField.setEnabled(!_readOnly);
+      _Position.setEnabled(!_readOnly);
+      _RefreshGps.setEnabled(!_readOnly && _locationManager != null);
     }
+  }
+
+  private class OnRefreshGpsClicked implements android.view.View.OnClickListener {
+
+    @Override
+    public void onClick(View v) {
+      if (_locationManager != null) {
+        _Long = String.format(Locale.US, "%,1.5f", _lastLocation.getLongitude());
+        _Lat = String.format(Locale.US, "%,1.5f", _lastLocation.getLatitude());
+        _Position.setText(String.format("Lat: %s, Long: %s", _Lat, _Long));
+      }
+    }
+  }
+
+  @Override
+  public void onLocationChanged(Location location) {
+    _lastLocation = location;
+  }
+
+  @Override
+  public void onStatusChanged(String provider, int status, Bundle extras) {
+    // Nichts tun
+  }
+
+  @Override
+  public void onProviderEnabled(String provider) {
+    // Nichts tun
+  }
+
+  @Override
+  public void onProviderDisabled(String provider) {
+    // Nichts tun
   }
 }

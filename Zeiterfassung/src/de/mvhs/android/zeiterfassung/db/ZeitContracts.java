@@ -86,7 +86,7 @@ public final class ZeitContracts {
 			/**
 			 * Längengrad aus der GPS Positionierung
 			 */
-			public final static String LANGTITUDE = "lan";
+			public final static String LONGTITUDE = "lan";
 		}
 
 		/**

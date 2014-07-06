@@ -9,6 +9,9 @@
 		den Fehler zu korrigieren, in dem Sie diesem Absturz-Bericht an uns senden.</string>
 	<string name="crash_dialog_comment_prompt">Sie können einen eigenen Kommentar unten hinzufügen:</string>
 	<string name="crash_dialog_ok_toast">Vielen Dank!</string>
+	<string name="pref_acra_enabled">Absturzberichte eingeschaltet</string>
+	<string name="pref_acra_disabled">Absturzberichte ausgeschaltet</string>
+	<string name="pref_enable_acra">ACRA Absturzberichte</string>
 
 	<!-- App -->
 	<string name="app_name">Zeiterfassung</string>
@@ -32,5 +35,7 @@
 	<string name="prefs_log_gps">GPS</string>
 	<string name="prefs_acra">ACRA</string>
 	<string name="mnu_prefs">Einstellungen</string>
+	<string name="Positionlabel">GPS Position:</string>
+	<string name="GpsButtonText">GPS</string>
 
 </resources>
