@@ -9,7 +9,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	private final static String _DB_NAME = "zeit.db";
 
 	// Aktuelle Datenbank-Version (benötigte Version)
-	private final static int _DB_VERSION = 4;
+	private final static int _DB_VERSION = 5;
 
 	public DBHelper(Context context) {
 		super(context, _DB_NAME, null, _DB_VERSION);

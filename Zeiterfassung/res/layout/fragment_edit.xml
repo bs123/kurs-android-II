@@ -1,143 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-	<RelativeLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-		<View
-			android:id="@+id/CenterHelper"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:layout_alignParentTop="true"
-			android:layout_centerHorizontal="true" />
+        <View
+            android:id="@+id/CenterHelper"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
-		<TextView
-			android:id="@+id/StartLabel"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentTop="true"
-			android:text="@string/StartLabel"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/StartLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/StartLabel"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-		<EditText
-			android:id="@+id/StartDate"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_below="@+id/StartLabel"
-			android:layout_toLeftOf="@+id/CenterHelper"
-			android:ems="10"
-			android:inputType="date" />
+        <EditText
+            android:id="@+id/StartDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/StartLabel"
+            android:layout_toLeftOf="@+id/CenterHelper"
+            android:ems="10"
+            android:inputType="date" />
 
-		<EditText
-			android:id="@+id/StartTime"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_alignBaseline="@+id/StartDate"
-			android:layout_alignParentRight="true"
-			android:layout_toRightOf="@+id/CenterHelper"
-			android:ems="10"
-			android:inputType="time" />
+        <EditText
+            android:id="@+id/StartTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/StartDate"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/CenterHelper"
+            android:ems="10"
+            android:inputType="time" />
 
-		<TextView
-			android:id="@+id/EndLabel"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_below="@+id/StartDate"
-			android:text="@string/EndLabel"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/EndLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/StartDate"
+            android:text="@string/EndLabel"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-		<EditText
-			android:id="@+id/EndDate"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_below="@+id/EndLabel"
-			android:layout_toLeftOf="@+id/CenterHelper"
-			android:ems="10"
-			android:inputType="date" />
+        <EditText
+            android:id="@+id/EndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/EndLabel"
+            android:layout_toLeftOf="@+id/CenterHelper"
+            android:ems="10"
+            android:inputType="date" />
 
-		<EditText
-			android:id="@+id/EndTime"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_alignBaseline="@+id/EndDate"
-			android:layout_alignParentRight="true"
-			android:layout_toRightOf="@+id/CenterHelper"
-			android:ems="10"
-			android:inputType="time" />
+        <EditText
+            android:id="@+id/EndTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/EndDate"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/CenterHelper"
+            android:ems="10"
+            android:inputType="time" />
 
-		<TextView
-			android:id="@+id/PauseLabel"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_below="@+id/EndDate"
-			android:text="@string/PauseLabel"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/PauseLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/EndDate"
+            android:text="@string/PauseLabel"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-		<EditText
-			android:id="@+id/PauseDuration"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_below="@+id/PauseLabel"
-			android:ems="10"
-			android:inputType="number" />
+        <EditText
+            android:id="@+id/PauseDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/PauseLabel"
+            android:ems="10"
+            android:inputType="number" />
 
-		<TextView
-			android:id="@+id/CommentLabel"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_below="@+id/PauseDuration"
-			android:text="@string/CommentLabel"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/CommentLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/PauseDuration"
+            android:text="@string/CommentLabel"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-		<EditText
-			android:id="@+id/CommentText"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_below="@+id/CommentLabel"
-			android:ems="10"
-			android:gravity="top"
-			android:inputType="textMultiLine"
-			android:minLines="5"
-			android:singleLine="false" />
+        <EditText
+            android:id="@+id/CommentText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/CommentLabel"
+            android:ems="10"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:singleLine="false" />
 
-		<TextView
-			android:id="@+id/PositionLabel"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_below="@+id/CommentText"
-			android:text="@string/Positionlabel"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/PositionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/CommentText"
+            android:text="@string/Positionlabel"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-		<EditText
-			android:id="@+id/Position"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_below="@+id/PositionLabel"
-			android:layout_toLeftOf="@+id/RefreshPosition"
-			android:ems="10"
-			android:inputType="text"
-			android:singleLine="true" />
+        <EditText
+            android:id="@+id/Position"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/PositionLabel"
+            android:layout_toLeftOf="@+id/RefreshPosition"
+            android:ems="10"
+            android:inputType="text"
+            android:singleLine="true" />
 
-		<Button
-			android:id="@+id/RefreshPosition"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentRight="true"
-			android:layout_below="@+id/PositionLabel"
-			android:text="@string/GpsButtonText" />
-	</RelativeLayout>
+        <Button
+            android:id="@+id/RefreshPosition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/PositionLabel"
+            android:text="@string/GpsButtonText" />
+
+        <ImageView
+            android:id="@+id/Image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/RefreshPosition"
+            android:layout_toLeftOf="@+id/TakePicture" />
+
+        <Button
+            android:id="@+id/TakePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/RefreshPosition"
+            android:text="C" />
+
+        <Button
+            android:id="@+id/SelectPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/TakePicture"
+            android:text="G" />
+    </RelativeLayout>
 
 </ScrollView>

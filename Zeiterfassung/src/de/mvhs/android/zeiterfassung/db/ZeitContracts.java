@@ -86,7 +86,12 @@ public final class ZeitContracts {
 			/**
 			 * Längengrad aus der GPS Positionierung
 			 */
-			public final static String LONGTITUDE = "lan";
+			public final static String LONGTITUDE = "long";
+
+			/**
+			 * Bild als byte-Array
+			 */
+			public final static String IMAGE = "image";
 		}
 
 		/**
