@@ -37,5 +37,6 @@
 	<string name="mnu_prefs">Einstellungen</string>
 	<string name="Positionlabel">GPS Position:</string>
 	<string name="GpsButtonText">GPS</string>
+	<string name="CoordinateFormatString">Long: %1$s° %2$s\' %3$s\'\', Lat: %4$s° %5$s\' %6$s\'\'</string>
 
 </resources>
