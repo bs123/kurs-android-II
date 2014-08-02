@@ -57,10 +57,8 @@ Links
 - Android Asset Studio (Icon und Theme Generatoren) <http://android-ui-utils.googlecode.com/hg/asset-studio/dist/index.html>
 - Stackoverflow (FAQ Community für Programmierer) <http://stackoverflow.com>
 
-Lizenz
-------
+### Lizenz
 Sowohl die Dokumentation als auch der Quellcode unterliegen der [![CC-BY-NC Lizenz](http://i.creativecommons.org/l/by-nc/4.0/88x31.png) CC-BY-NC Lizenz](http://creativecommons.org/licenses/by-nc/4.0/deed.de)
 
-Fattr
------
+### Fattr
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=WebDucer&url=https://github.com/WebDucer-MVHS/kurs-android-I-a&title=Aufbaukurs: Programme entwickeln für Android-Geräte&language=de_DE&tags=github,Android,App,MVHS&category=software)
