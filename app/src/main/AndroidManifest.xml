@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.mvhs.android.zeiterfassung" >
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".TimeTrackingActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".db.ZeitenProvider"
+            android:authorities="de.mvhs.android.zeiterfassung.provider"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+
+        <activity
+            android:name=".RecordListActivity"
+            android:label="@string/title_activity_record_list"
+            android:parentActivityName=".TimeTrackingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.mvhs.android.zeiterfassung.TimeTrackingActivity" />
+        </activity>
+        <activity
+            android:name=".EditRecordActivity"
+            android:label="@string/title_activity_edit_record"
+            android:parentActivityName=".TimeTrackingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.mvhs.android.zeiterfassung.TimeTrackingActivity" />
+        </activity>
+    </application>
+
+</manifest>
