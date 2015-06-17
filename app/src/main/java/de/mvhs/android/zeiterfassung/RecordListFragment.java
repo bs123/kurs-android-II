@@ -1,5 +1,6 @@
 package de.mvhs.android.zeiterfassung;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.DialogInterface;
@@ -28,154 +29,165 @@ import de.mvhs.android.zeiterfassung.utils.ListViewBinder;
  * Created by eugen on 14.06.15.
  */
 public class RecordListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-   // Klassenvaribalen
-   private ListView _recordList = null;
-   private SimpleCursorAdapter _adapter = null;
-   private final static String[] _projection = {ZeitContract.ZeitDaten.Columns._ID, ZeitContract.ZeitDaten.Columns.START_TIME, ZeitContract.ZeitDaten.Columns.END_TIME};
-   private final static String[] _columns = {ZeitContract.ZeitDaten.Columns.START_TIME, ZeitContract.ZeitDaten.Columns.END_TIME};
-   private final static String _sortOrder = ZeitContract.ZeitDaten.Columns.START_TIME + " DESC";
+    // Klassenvaribalen
+    private ListView _recordList = null;
+    private SimpleCursorAdapter _adapter = null;
+    private final static String[] _projection = {ZeitContract.ZeitDaten.Columns._ID, ZeitContract.ZeitDaten.Columns.START_TIME, ZeitContract.ZeitDaten.Columns.END_TIME};
+    private final static String[] _columns = {ZeitContract.ZeitDaten.Columns.START_TIME, ZeitContract.ZeitDaten.Columns.END_TIME};
+    private final static String _sortOrder = ZeitContract.ZeitDaten.Columns.START_TIME + " DESC";
 
-   // Loader ID
-   private final static int _LOADER_ID = 100;
+    // Loader ID
+    private final static int _LOADER_ID = 100;
 
-   @Override
-   public void onCreate(@Nullable Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-   }
+    // API Interface
+    public interface SelectionChangedListener {
+        void onSelectionChanged(long id);
+    }
 
-   @Nullable
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-      View rootView = inflater.inflate(R.layout.fragment_record_list, container, false);
+    // Listener Instance
+    private SelectionChangedListener _changeListener;
 
-      // Initalisierung der UI Elemente
-      _recordList = (ListView) rootView.findViewById(R.id.RecordList);
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
-      // Initialisierung des Adapters
-      _adapter = new SimpleCursorAdapter(getActivity(), // Context
-         R.layout.row_two_columns, // Layout
-         null, // Cursor Daten
-         _columns, // Spalten
-         new int[] {android.R.id.text1, android.R.id.text2}, // Layout Views
-         SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER // Flags
-      );
-      _adapter.setViewBinder(new ListViewBinder());
-      // Liste mit Adapter verbinden
-      _recordList.setAdapter(_adapter);
+        if (activity instanceof SelectionChangedListener) {
+            _changeListener = (SelectionChangedListener) activity;
+        }
+    }
 
-      return rootView;
-   }
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_record_list, container, false);
 
-   @Override
-   public void onStart() {
-      super.onStart();
+        // Initalisierung der UI Elemente
+        _recordList = (ListView) rootView.findViewById(R.id.RecordList);
 
-      registerForContextMenu(_recordList);
-      _recordList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-         @Override
-         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent editIntent = new Intent(getActivity(), EditRecordActivity.class);
-            editIntent.putExtra(EditRecordFragment.ID_KEY, id);
+        // Initialisierung des Adapters
+        _adapter = new SimpleCursorAdapter(getActivity(), // Context
+                R.layout.row_two_columns, // Layout
+                null, // Cursor Daten
+                _columns, // Spalten
+                new int[]{android.R.id.text1, android.R.id.text2}, // Layout Views
+                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER // Flags
+        );
+        _adapter.setViewBinder(new ListViewBinder());
+        // Liste mit Adapter verbinden
+        _recordList.setAdapter(_adapter);
 
-            startActivity(editIntent);
-         }
-      });
+        return rootView;
+    }
 
-      // Mit loader die Daten im Hintergrund laden
-      getActivity().getSupportLoaderManager().restartLoader(_LOADER_ID, null, this);
-   }
+    @Override
+    public void onStart() {
+        super.onStart();
 
-   @Override
-   public void onStop() {
-      super.onStop();
+        registerForContextMenu(_recordList);
+        _recordList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (_changeListener != null) {
+                    _changeListener.onSelectionChanged(id);
+                }
+            }
+        });
 
-      unregisterForContextMenu(_recordList);
-      _recordList.setOnItemClickListener(null);
-   }
+        // Mit loader die Daten im Hintergrund laden
+        getActivity().getSupportLoaderManager().restartLoader(_LOADER_ID, null, this);
+    }
 
-   @Override
-   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-      if (v.getId() == R.id.RecordList) {
-         getActivity().getMenuInflater().inflate(R.menu.list_context_menu, menu);
-      }
+    @Override
+    public void onStop() {
+        super.onStop();
 
-      super.onCreateContextMenu(menu, v, menuInfo);
-   }
+        unregisterForContextMenu(_recordList);
+        _recordList.setOnItemClickListener(null);
+    }
 
-   @Override
-   public boolean onContextItemSelected(MenuItem item) {
-      switch (item.getItemId()) {
-         case R.id.action_delete:
-            // Löschen des aktuellen Datensatzes
-            final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            final long id = info.id;
-            deleteRecord(id);
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId() == R.id.RecordList) {
+            getActivity().getMenuInflater().inflate(R.menu.list_context_menu, menu);
+        }
 
-            return true;
-      }
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
 
-      return super.onContextItemSelected(item);
-   }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                // Löschen des aktuellen Datensatzes
+                final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                final long id = info.id;
+                deleteRecord(id);
 
-   private void deleteRecord(final long id) {
-      // Abfragedialog erstellen
-      AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-      builder.setTitle(getString(R.string.button_delete)).setIcon(R.drawable.ic_menu_delete).setMessage(getString(R.string.delete_dialog_message)).setPositiveButton(R.string.button_delete, new DialogInterface.OnClickListener() {
-         @Override
-         public void onClick(DialogInterface dialog, int which) {
-            // Löschlogik
-            Uri uri = ContentUris.withAppendedId(ZeitContract.ZeitDaten.CONTENT_URI, id);
-            getActivity().getContentResolver().delete(uri, null, null);
-         }
-      }).setNegativeButton(getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
-         @Override
-         public void onClick(DialogInterface dialog, int which) {
-            // Abbrechen
-            dialog.dismiss();
-         }
-      });
+                return true;
+        }
 
-      // Dialog anzeigen
-      builder.create().show();
-   }
+        return super.onContextItemSelected(item);
+    }
 
-   @Override
-   public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-      CursorLoader loader = null;
+    private void deleteRecord(final long id) {
+        // Abfragedialog erstellen
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getString(R.string.button_delete)).setIcon(R.drawable.ic_menu_delete).setMessage(getString(R.string.delete_dialog_message)).setPositiveButton(R.string.button_delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Löschlogik
+                Uri uri = ContentUris.withAppendedId(ZeitContract.ZeitDaten.CONTENT_URI, id);
+                getActivity().getContentResolver().delete(uri, null, null);
+            }
+        }).setNegativeButton(getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Abbrechen
+                dialog.dismiss();
+            }
+        });
 
-      switch (id) {
-         case _LOADER_ID:
-            loader = new CursorLoader(getActivity(), // Context
-               ZeitContract.ZeitDaten.CONTENT_URI, // URI für ContentProvider
-               _projection, // Spalten, die geladen werden sollen
-               null, // Filter
-               null, // Filter Parameter
-               _sortOrder);
-            break;
-      }
+        // Dialog anzeigen
+        builder.create().show();
+    }
 
-      return loader;
-   }
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        CursorLoader loader = null;
 
-   @Override
-   public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-      final int loaderId = loader.getId();
+        switch (id) {
+            case _LOADER_ID:
+                loader = new CursorLoader(getActivity(), // Context
+                        ZeitContract.ZeitDaten.CONTENT_URI, // URI für ContentProvider
+                        _projection, // Spalten, die geladen werden sollen
+                        null, // Filter
+                        null, // Filter Parameter
+                        _sortOrder);
+                break;
+        }
 
-      switch (loaderId) {
-         case _LOADER_ID:
-            _adapter.swapCursor(data);
-            break;
-      }
-   }
+        return loader;
+    }
 
-   @Override
-   public void onLoaderReset(Loader<Cursor> loader) {
-      final int loaderId = loader.getId();
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        final int loaderId = loader.getId();
 
-      switch (loaderId) {
-         case _LOADER_ID:
-            _adapter.swapCursor(null);
-            break;
-      }
-   }
+        switch (loaderId) {
+            case _LOADER_ID:
+                _adapter.swapCursor(data);
+                break;
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        final int loaderId = loader.getId();
+
+        switch (loaderId) {
+            case _LOADER_ID:
+                _adapter.swapCursor(null);
+                break;
+        }
+    }
 }
