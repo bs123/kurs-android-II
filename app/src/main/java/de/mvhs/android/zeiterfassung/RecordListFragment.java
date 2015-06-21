@@ -116,13 +116,20 @@ public class RecordListFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final long id = info.id;
+
         switch (item.getItemId()) {
             case R.id.action_delete:
                 // Löschen des aktuellen Datensatzes
-                final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                final long id = info.id;
                 deleteRecord(id);
 
+                return true;
+            case R.id.action_edit:
+                Intent editIntent = new Intent(getActivity(), EditRecordActivity.class);
+                editIntent.putExtra(EditRecordFragment.ID_KEY, id);
+                editIntent.putExtra(EditRecordFragment.IS_EDITABLE_KEY, true);
+                startActivity(editIntent);
                 return true;
         }
 

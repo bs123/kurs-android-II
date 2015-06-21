@@ -33,12 +33,20 @@ public class RecordListActivity extends ActionBarActivity implements RecordListF
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_export) {
-            CsvExporter exporter = new CsvExporter(this);
-            exporter.execute();
+        switch (id){
+            case R.id.action_export:
+                CsvExporter exporter = new CsvExporter(this);
+                exporter.execute();
+                return true;
+            case R.id.action_new:
+                // Starten manueller Eintrag
+                Intent newIntent = new Intent(this, EditRecordActivity.class);
+                newIntent.putExtra(EditRecordFragment.IS_EDITABLE_KEY, true);
+                startActivity(newIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

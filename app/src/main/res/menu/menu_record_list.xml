@@ -1,13 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="de.mvhs.android.zeiterfassung.RecordListActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="de.mvhs.android.zeiterfassung.RecordListActivity">
 
-   <!-- Export -->
-   <item
-      android:id="@+id/action_export"
-      android:icon="@drawable/ic_menu_share"
-      android:orderInCategory="100"
-      android:title="@string/action_export"
-      app:showAsAction="always" />
+    <!-- New -->
+    <item
+        android:id="@+id/action_new"
+        android:icon="@drawable/ic_menu_add"
+        android:orderInCategory="100"
+        android:title="@string/action_new"
+        app:showAsAction="always" />
+    <!-- Export -->
+    <item
+        android:id="@+id/action_export"
+        android:icon="@drawable/ic_menu_share"
+        android:orderInCategory="100"
+        android:title="@string/action_export"
+        app:showAsAction="ifRoom" />
 </menu>

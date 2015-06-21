@@ -25,4 +25,5 @@
    <string name="export_dialog_cancel_message">Export cancelation!</string>
    <string name="export_dialog_message">All records are exported in CSV file.</string>
    <string name="export_dialog_title">CSV Export ...</string>
+    <string name="action_edit">Edit</string>
 </resources>

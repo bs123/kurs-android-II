@@ -59,6 +59,8 @@ public class TimeTrackingActivity extends ActionBarActivity {
                 Intent newIntent = new Intent(this, EditRecordActivity.class);
                 newIntent.putExtra(EditRecordFragment.IS_EDITABLE_KEY, true);
                 startActivity(newIntent);
+
+                handled = true;
                 break;
 
             default:

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -30,12 +31,12 @@ import de.mvhs.android.zeiterfassung.utils.Converter;
 public class EditRecordFragment extends Fragment implements DataChangedListener {
     public final static String ID_KEY = "DataID";
     public final static String IS_EDITABLE_KEY = "RecordIsEditable";
-    private EditText _startDate;
-    private EditText _startTime;
-    private EditText _endDate;
-    private EditText _endTime;
-    private EditText _pause;
-    private EditText _comment;
+    private TextView _startDate;
+    private TextView _startTime;
+    private TextView _endDate;
+    private TextView _endTime;
+    private TextView _pause;
+    private TextView _comment;
 
     // Rohdaten
     private Calendar _start = Calendar.getInstance();
@@ -64,19 +65,24 @@ public class EditRecordFragment extends Fragment implements DataChangedListener 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_edit_record, container, false);
+        View rootView;
+        if(_isReadOnly){
+            rootView = inflater.inflate(R.layout.fragment_edit_record_readonly, container, false);
+        } else {
+            rootView = inflater.inflate(R.layout.fragment_edit_record, container, false);
+        }
 
         // Init UI elements
-        _startDate = (EditText) rootView.findViewById(R.id.StartDate);
+        _startDate = (TextView) rootView.findViewById(R.id.StartDate);
         _startDate.setKeyListener(null);
-        _startTime = (EditText) rootView.findViewById(R.id.StartTime);
+        _startTime = (TextView) rootView.findViewById(R.id.StartTime);
         _startTime.setKeyListener(null);
-        _endDate = (EditText) rootView.findViewById(R.id.EndDate);
+        _endDate = (TextView) rootView.findViewById(R.id.EndDate);
         _endDate.setKeyListener(null);
-        _endTime = (EditText) rootView.findViewById(R.id.EndTime);
+        _endTime = (TextView) rootView.findViewById(R.id.EndTime);
         _endTime.setKeyListener(null);
-        _pause = (EditText) rootView.findViewById(R.id.Pause);
-        _comment = (EditText) rootView.findViewById(R.id.Comment);
+        _pause = (TextView) rootView.findViewById(R.id.Pause);
+        _comment = (TextView) rootView.findViewById(R.id.Comment);
         if(_isReadOnly){
             _pause.setKeyListener(null);
             _comment.setKeyListener(null);
