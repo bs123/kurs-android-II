@@ -43,7 +43,7 @@ public class ZeitProviderTest extends ProviderTestCase2<ZeitenProvider> {
         assertTrue(id > 0);
     }
 
-    public void test_insertInvalidValueItem_ReturnInvalidId(){
+    public void test_insertInvalidValueItem_ReturnInvalidId() {
         // Arrange
         ContentValues values = new ContentValues();
         values.put(ZeitContract.ZeitDaten.Columns.END_TIME, "2015-06-24T18:00");
@@ -53,5 +53,107 @@ public class ZeitProviderTest extends ProviderTestCase2<ZeitenProvider> {
 
         // Assert
         assertNull(insertUri);
+    }
+
+    public void test_insertNegativePause_ReturnInvalidId() {
+        // Arrange
+        ContentValues values = new ContentValues();
+        values.put(ZeitContract.ZeitDaten.Columns.START_TIME, "2015-06-24T18:00");
+        values.put(ZeitContract.ZeitDaten.Columns.PAUSE, -1);
+
+        // Act
+        Uri insertUri = getMockContentResolver().insert(ZeitContract.ZeitDaten.CONTENT_URI, values);
+
+        // Assert
+        assertNull(insertUri);
+    }
+
+    public void test_insertZeroPause_ReturnValidId() {
+        // Arrange
+        ContentValues values = new ContentValues();
+        values.put(ZeitContract.ZeitDaten.Columns.START_TIME, "2015-06-24T18:00");
+        values.put(ZeitContract.ZeitDaten.Columns.PAUSE, 0);
+
+        // Act
+        Uri insertUri = getMockContentResolver().insert(ZeitContract.ZeitDaten.CONTENT_URI, values);
+
+        // Assert
+        long id = ContentUris.parseId(insertUri);
+        assertTrue(id > 0);
+    }
+
+    public void test_insertPositivePause_ReturnValidId() {
+        // Arrange
+        ContentValues values = new ContentValues();
+        values.put(ZeitContract.ZeitDaten.Columns.START_TIME, "2015-06-24T18:00");
+        values.put(ZeitContract.ZeitDaten.Columns.PAUSE, 1);
+
+        // Act
+        Uri insertUri = getMockContentResolver().insert(ZeitContract.ZeitDaten.CONTENT_URI, values);
+
+        // Assert
+        long id = ContentUris.parseId(insertUri);
+        assertTrue(id > 0);
+    }
+
+    public void test_insertInvalidStartTime_ReturnInvalidId() {
+        // Arrange
+        ContentValues values = new ContentValues();
+        values.put(ZeitContract.ZeitDaten.Columns.START_TIME, "2015-06-24 18:00");
+        values.put(ZeitContract.ZeitDaten.Columns.PAUSE, 1);
+
+        // Act
+        Uri insertUri = getMockContentResolver().insert(ZeitContract.ZeitDaten.CONTENT_URI, values);
+
+        // Assert
+        assertNull(insertUri);
+    }
+
+    public void test_updateNegativePause_ReturnInvalidId() {
+        // Arrange
+        ContentValues values = new ContentValues();
+        values.put(ZeitContract.ZeitDaten.Columns.START_TIME, "2015-06-24T18:00");
+
+        ContentValues updateValues = new ContentValues();
+        updateValues.put(ZeitContract.ZeitDaten.Columns.PAUSE, -1);
+
+        // Act
+        Uri insertUri = getMockContentResolver().insert(ZeitContract.ZeitDaten.CONTENT_URI, values);
+        int updated = getMockContentResolver().update(insertUri, updateValues, null, null);
+
+        // Assert
+        assertEquals(0, updated);
+    }
+
+    public void test_updateZeroPause_ReturnValidId() {
+        // Arrange
+        ContentValues values = new ContentValues();
+        values.put(ZeitContract.ZeitDaten.Columns.START_TIME, "2015-06-24T18:00");
+
+        ContentValues updateValues = new ContentValues();
+        updateValues.put(ZeitContract.ZeitDaten.Columns.PAUSE, 0);
+
+        // Act
+        Uri insertUri = getMockContentResolver().insert(ZeitContract.ZeitDaten.CONTENT_URI, values);
+        int updated = getMockContentResolver().update(insertUri, updateValues, null, null);
+
+        // Assert
+        assertEquals(1, updated);
+    }
+
+    public void test_updatePositivePause_ReturnValidId() {
+        // Arrange
+        ContentValues values = new ContentValues();
+        values.put(ZeitContract.ZeitDaten.Columns.START_TIME, "2015-06-24T18:00");
+
+        ContentValues updateValues = new ContentValues();
+        updateValues.put(ZeitContract.ZeitDaten.Columns.PAUSE, 1);
+
+        // Act
+        Uri insertUri = getMockContentResolver().insert(ZeitContract.ZeitDaten.CONTENT_URI, values);
+        int updated = getMockContentResolver().update(insertUri, updateValues, null, null);
+
+        // Assert
+        assertEquals(1, updated);
     }
 }

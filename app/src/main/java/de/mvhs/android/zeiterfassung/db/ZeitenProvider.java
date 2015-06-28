@@ -9,181 +9,227 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import java.text.ParseException;
+import java.util.Date;
+
 public class ZeitenProvider extends ContentProvider {
 
-   /* Klassen variablen */
-   // SQLite Helper
-   private DBHelper _dbHelper;
+    /* Klassen variablen */
+    // SQLite Helper
+    private DBHelper _dbHelper;
 
-   // Mapping-Klasse
-   private final static UriMatcher _URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+    // Mapping-Klasse
+    private final static UriMatcher _URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
-   static {
-      _URI_MATCHER.addURI(ZeitContract.AUTHORITY, ZeitContract.ZeitDaten.CONTENT_DIRECTORY, ZeitenTable.ITEM_LIST_ID);
-      _URI_MATCHER.addURI(ZeitContract.AUTHORITY, ZeitContract.ZeitDaten.CONTENT_DIRECTORY + "/#", ZeitenTable.ITEM_ID);
-      _URI_MATCHER.addURI(ZeitContract.AUTHORITY, ZeitContract.ZeitDaten.EMPTY_CONTENT_DIRECTORY, ZeitenTable.EMPTY_ITEM_ID);
-   }
+    static {
+        _URI_MATCHER.addURI(ZeitContract.AUTHORITY, ZeitContract.ZeitDaten.CONTENT_DIRECTORY, ZeitenTable.ITEM_LIST_ID);
+        _URI_MATCHER.addURI(ZeitContract.AUTHORITY, ZeitContract.ZeitDaten.CONTENT_DIRECTORY + "/#", ZeitenTable.ITEM_ID);
+        _URI_MATCHER.addURI(ZeitContract.AUTHORITY, ZeitContract.ZeitDaten.EMPTY_CONTENT_DIRECTORY, ZeitenTable.EMPTY_ITEM_ID);
+    }
 
-   // Nicht geschlossener Eintrag
-   private final static String _EMPTY_ENTRY_WHERE = "IFNULL(" + ZeitContract.ZeitDaten.Columns.END_TIME + ",'')=''";
-   public static final String _SINGLE_WHERE = BaseColumns._ID + "=?";
+    // Nicht geschlossener Eintrag
+    private final static String _EMPTY_ENTRY_WHERE = "IFNULL(" + ZeitContract.ZeitDaten.Columns.END_TIME + ",'')=''";
+    public static final String _SINGLE_WHERE = BaseColumns._ID + "=?";
 
-   @Override
-   public boolean onCreate() {
-      _dbHelper = new DBHelper(getContext());
-      return true;
-   }
+    @Override
+    public boolean onCreate() {
+        _dbHelper = new DBHelper(getContext());
+        return true;
+    }
 
-   @Override
-   public String getType(Uri uri) {
-      final int uriType = _URI_MATCHER.match(uri);
+    @Override
+    public String getType(Uri uri) {
+        final int uriType = _URI_MATCHER.match(uri);
 
-      String returnType = null;
+        String returnType = null;
 
-      switch (uriType) {
-         case ZeitenTable.ITEM_LIST_ID:
-            returnType = ZeitContract.ZeitDaten.CONTENT_TYPE;
-            break;
-         case ZeitenTable.ITEM_ID:
-         case ZeitenTable.EMPTY_ITEM_ID:
-            returnType = ZeitContract.ZeitDaten.CONTENT_ITEM_TYPE;
-            break;
-      }
+        switch (uriType) {
+            case ZeitenTable.ITEM_LIST_ID:
+                returnType = ZeitContract.ZeitDaten.CONTENT_TYPE;
+                break;
+            case ZeitenTable.ITEM_ID:
+            case ZeitenTable.EMPTY_ITEM_ID:
+                returnType = ZeitContract.ZeitDaten.CONTENT_ITEM_TYPE;
+                break;
+        }
 
-      return returnType;
-   }
+        return returnType;
+    }
 
-   @Override
-   public Uri insert(Uri uri, ContentValues values) {
-      final int uriType = _URI_MATCHER.match(uri);
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
+        final int uriType = _URI_MATCHER.match(uri);
 
-      Uri insertUri = null;
-      long id;
+        Uri insertUri = null;
+        if (!validateValues(values)) {
+            return insertUri;
+        }
 
-      switch (uriType) {
-         case ZeitenTable.ITEM_LIST_ID:
-         case ZeitenTable.ITEM_ID:
-         case ZeitenTable.EMPTY_ITEM_ID:
-            SQLiteDatabase db = _dbHelper.getWritableDatabase();
-            id = db.insert(ZeitenTable.TABLE_NAME, null, values);
-            break;
+        long id;
 
-         default:
-            throw new IllegalArgumentException("Unbekannte URI: " + uri);
-      }
+        switch (uriType) {
+            case ZeitenTable.ITEM_LIST_ID:
+            case ZeitenTable.ITEM_ID:
+            case ZeitenTable.EMPTY_ITEM_ID:
+                SQLiteDatabase db = _dbHelper.getWritableDatabase();
+                id = db.insert(ZeitenTable.TABLE_NAME, null, values);
+                break;
 
-      if (id != -1) {
-         // Uri für neue eingefügten Datensatz erzeugen
-         insertUri = ContentUris.withAppendedId(ZeitContract.ZeitDaten.CONTENT_URI, id);
+            default:
+                throw new IllegalArgumentException("Unbekannte URI: " + uri);
+        }
 
-         // Benachrichtigung über Datenänderung
-         getContext().getContentResolver().notifyChange(insertUri, null);
-      }
+        if (id != -1) {
+            // Uri für neue eingefügten Datensatz erzeugen
+            insertUri = ContentUris.withAppendedId(ZeitContract.ZeitDaten.CONTENT_URI, id);
 
-      return insertUri;
-   }
+            // Benachrichtigung über Datenänderung
+            getContext().getContentResolver().notifyChange(insertUri, null);
+        }
 
-   @Override
-   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        return insertUri;
+    }
 
-      final int uriType = _URI_MATCHER.match(uri);
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
-      Cursor data;
+        final int uriType = _URI_MATCHER.match(uri);
 
-      switch (uriType) {
-         case ZeitenTable.ITEM_LIST_ID:
-            SQLiteDatabase db = _dbHelper.getReadableDatabase();
-            data = db.query(ZeitenTable.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
-            break;
+        Cursor data;
 
-         case ZeitenTable.ITEM_ID:
-            SQLiteDatabase dbSingle = _dbHelper.getReadableDatabase();
-            long id = ContentUris.parseId(uri);
-            String[] whereArgs = new String[] {String.valueOf(id)};
-            data = dbSingle.query(ZeitenTable.TABLE_NAME, projection, _SINGLE_WHERE, whereArgs, null, null, null);
-            break;
+        switch (uriType) {
+            case ZeitenTable.ITEM_LIST_ID:
+                SQLiteDatabase db = _dbHelper.getReadableDatabase();
+                data = db.query(ZeitenTable.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
 
-         case ZeitenTable.EMPTY_ITEM_ID:
-            data = _dbHelper.getReadableDatabase().query(ZeitenTable.TABLE_NAME, projection, _EMPTY_ENTRY_WHERE, null, null, null, null);
-            break;
+            case ZeitenTable.ITEM_ID:
+                SQLiteDatabase dbSingle = _dbHelper.getReadableDatabase();
+                long id = ContentUris.parseId(uri);
+                String[] whereArgs = new String[]{String.valueOf(id)};
+                data = dbSingle.query(ZeitenTable.TABLE_NAME, projection, _SINGLE_WHERE, whereArgs, null, null, null);
+                break;
 
-         default:
-            throw new IllegalArgumentException("Unbekannte URI: " + uri);
-      }
+            case ZeitenTable.EMPTY_ITEM_ID:
+                data = _dbHelper.getReadableDatabase().query(ZeitenTable.TABLE_NAME, projection, _EMPTY_ENTRY_WHERE, null, null, null, null);
+                break;
 
-      if (data != null) {
-         data.setNotificationUri(getContext().getContentResolver(), uri);
-      }
+            default:
+                throw new IllegalArgumentException("Unbekannte URI: " + uri);
+        }
 
-      return data;
-   }
+        if (data != null) {
+            data.setNotificationUri(getContext().getContentResolver(), uri);
+        }
 
-   @Override
-   public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-      final int uriType = _URI_MATCHER.match(uri);
+        return data;
+    }
 
-      int updatedItems;
+    @Override
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        final int uriType = _URI_MATCHER.match(uri);
 
-      switch (uriType) {
-         case ZeitenTable.ITEM_LIST_ID:
-            SQLiteDatabase db = _dbHelper.getWritableDatabase();
-            updatedItems = db.update(ZeitenTable.TABLE_NAME, values, selection, selectionArgs);
-            break;
+        int updatedItems = 0;
 
-         case ZeitenTable.ITEM_ID:
-            SQLiteDatabase dbSingle = _dbHelper.getWritableDatabase();
-            long id = ContentUris.parseId(uri);
-            String[] whereArgs = new String[] {String.valueOf(id)};
-            updatedItems = dbSingle.update(ZeitenTable.TABLE_NAME, values, _SINGLE_WHERE, whereArgs);
-            break;
+        if(!validateValues(values)){
+            return updatedItems;
+        }
 
-         case ZeitenTable.EMPTY_ITEM_ID:
-            updatedItems = _dbHelper.getWritableDatabase().update(ZeitenTable.TABLE_NAME, values, _EMPTY_ENTRY_WHERE, null);
-            break;
+        switch (uriType) {
+            case ZeitenTable.ITEM_LIST_ID:
+                SQLiteDatabase db = _dbHelper.getWritableDatabase();
+                updatedItems = db.update(ZeitenTable.TABLE_NAME, values, selection, selectionArgs);
+                break;
 
-         default:
-            throw new IllegalArgumentException("Unbekannte URI: " + uri);
-      }
+            case ZeitenTable.ITEM_ID:
+                SQLiteDatabase dbSingle = _dbHelper.getWritableDatabase();
+                long id = ContentUris.parseId(uri);
+                String[] whereArgs = new String[]{String.valueOf(id)};
+                updatedItems = dbSingle.update(ZeitenTable.TABLE_NAME, values, _SINGLE_WHERE, whereArgs);
+                break;
 
-      if (updatedItems > 0) {
-         getContext().getContentResolver().notifyChange(uri, null);
-      }
+            case ZeitenTable.EMPTY_ITEM_ID:
+                updatedItems = _dbHelper.getWritableDatabase().update(ZeitenTable.TABLE_NAME, values, _EMPTY_ENTRY_WHERE, null);
+                break;
 
-      return updatedItems;
-   }
+            default:
+                throw new IllegalArgumentException("Unbekannte URI: " + uri);
+        }
 
-   @Override
-   public int delete(Uri uri, String selection, String[] selectionArgs) {
-      final int uriType = _URI_MATCHER.match(uri);
+        if (updatedItems > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
 
-      int deletedItems;
+        return updatedItems;
+    }
 
-      switch (uriType) {
-         case ZeitenTable.ITEM_LIST_ID:
-            SQLiteDatabase db = _dbHelper.getWritableDatabase();
-            deletedItems = db.delete(ZeitenTable.TABLE_NAME, selection, selectionArgs);
-            break;
+    @Override
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        final int uriType = _URI_MATCHER.match(uri);
 
-         case ZeitenTable.ITEM_ID:
-            SQLiteDatabase dbSingle = _dbHelper.getWritableDatabase();
-            long id = ContentUris.parseId(uri);
-            String[] whereArgs = new String[] {String.valueOf(id)};
-            deletedItems = dbSingle.delete(ZeitenTable.TABLE_NAME, _SINGLE_WHERE, whereArgs);
-            break;
+        int deletedItems;
 
-         case ZeitenTable.EMPTY_ITEM_ID:
-            deletedItems = _dbHelper.getWritableDatabase().delete(ZeitenTable.TABLE_NAME, _EMPTY_ENTRY_WHERE, null);
-            break;
+        switch (uriType) {
+            case ZeitenTable.ITEM_LIST_ID:
+                SQLiteDatabase db = _dbHelper.getWritableDatabase();
+                deletedItems = db.delete(ZeitenTable.TABLE_NAME, selection, selectionArgs);
+                break;
 
-         default:
-            throw new IllegalArgumentException("Unbekannte URI: " + uri);
-      }
+            case ZeitenTable.ITEM_ID:
+                SQLiteDatabase dbSingle = _dbHelper.getWritableDatabase();
+                long id = ContentUris.parseId(uri);
+                String[] whereArgs = new String[]{String.valueOf(id)};
+                deletedItems = dbSingle.delete(ZeitenTable.TABLE_NAME, _SINGLE_WHERE, whereArgs);
+                break;
 
-      if (deletedItems > 0) {
-         // Benachrichtigung über Datenänderung
-         getContext().getContentResolver().notifyChange(uri, null);
-      }
+            case ZeitenTable.EMPTY_ITEM_ID:
+                deletedItems = _dbHelper.getWritableDatabase().delete(ZeitenTable.TABLE_NAME, _EMPTY_ENTRY_WHERE, null);
+                break;
 
-      return deletedItems;
-   }
+            default:
+                throw new IllegalArgumentException("Unbekannte URI: " + uri);
+        }
+
+        if (deletedItems > 0) {
+            // Benachrichtigung über Datenänderung
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return deletedItems;
+    }
+
+    private boolean validateValues(ContentValues values) {
+        // Überprüfung der pause
+        if (values.containsKey(ZeitContract.ZeitDaten.Columns.PAUSE)) {
+            int pause = values.getAsInteger(ZeitContract.ZeitDaten.Columns.PAUSE);
+
+            if (pause < 0) {
+                return false;
+            }
+        }
+
+        // Überprüfung der Stratzeit
+        if (values.containsKey(ZeitContract.ZeitDaten.Columns.START_TIME)) {
+            String dateTime = values.getAsString(ZeitContract.ZeitDaten.Columns.START_TIME);
+            try {
+                Date date = ZeitContract.Converters.DB_DATE_TIME_FORMATTER.parse(dateTime);
+            } catch (ParseException ex) {
+                return false;
+            }
+        }
+
+        // Überprüfung der Endzeit
+        if (values.containsKey(ZeitContract.ZeitDaten.Columns.END_TIME)) {
+            String dateTime = values.getAsString(ZeitContract.ZeitDaten.Columns.START_TIME);
+            if (dateTime != null) {
+                try {
+                    Date date = ZeitContract.Converters.DB_DATE_TIME_FORMATTER.parse(dateTime);
+                } catch (ParseException ex) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }

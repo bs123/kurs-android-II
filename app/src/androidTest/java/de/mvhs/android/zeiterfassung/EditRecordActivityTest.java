@@ -11,12 +11,13 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
 
 /**
  * Created by kurs on 24.06.15.
  */
-public class EdirRecordActivityTest extends ActivityInstrumentationTestCase2<EditRecordActivity> {
-    public EdirRecordActivityTest() {
+public class EditRecordActivityTest extends ActivityInstrumentationTestCase2<EditRecordActivity> {
+    public EditRecordActivityTest() {
         super(EditRecordActivity.class);
     }
 
@@ -30,8 +31,20 @@ public class EdirRecordActivityTest extends ActivityInstrumentationTestCase2<Edi
     }
 
     public void test_TypeComment_ResultsInCommentText(){
-        onView(withId(R.id.Comment)).perform(typeText("Hallo Welt!"));
+        onView(withId(R.id.Comment))
+                .perform(typeText("Hallo Welt!"))
+                .check(matches(withText("Hallo Welt!")));
+    }
 
-        onView(withId(R.id.Comment)).check(matches(withText("Hallo Welt!")));
+    public void test_NegativePause_ResultsInPositiveInput(){
+        onView(withId(R.id.Pause))
+                .perform(typeText("-1"))
+                .check(matches(withText("1")));
+    }
+
+    public void test_LetterPause_ResultsInNoInput(){
+        onView(withId(R.id.Pause))
+                .perform(typeText("Lorem Ipsum"))
+                .check(matches(withText(isEmptyOrNullString())));
     }
 }
