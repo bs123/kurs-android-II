@@ -63,6 +63,14 @@ public class TimeTrackingActivity extends ActionBarActivity {
                 handled = true;
                 break;
 
+            case R.id.action_web:
+                // Web Activity starten
+                Intent webIntent = new Intent(this, IssueActivity.class);
+                startActivity(webIntent);
+
+                handled = true;
+                break;
+
             default:
                 handled = super.onOptionsItemSelected(item);
                 break;

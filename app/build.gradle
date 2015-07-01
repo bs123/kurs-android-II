@@ -22,6 +22,10 @@ android {
 
     packagingOptions {
         exclude "LICENSE.txt"
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
     }
 
    dexOptions {
@@ -39,4 +43,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
     androidTestCompile 'com.android.support.test:runner:0.3'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'org.kohsuke:github-api:1.68'
 }

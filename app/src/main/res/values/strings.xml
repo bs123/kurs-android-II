@@ -27,4 +27,8 @@
     <string name="action_cancel">Abbrechen</string>
     <string name="activity_title_edit">Datensatz bearbeiten</string>
     <string name="PlaceHolder" translatable="false">---</string>
+    <string name="title_activity_issue">IssueActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_load">Laden</string>
+    <string name="action_web">Web</string>
 </resources>

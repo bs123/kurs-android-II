@@ -3,6 +3,8 @@
     package="de.mvhs.android.zeiterfassung" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -37,6 +39,14 @@
         <activity
             android:name=".EditRecordActivity"
             android:label="@string/title_activity_edit_record"
+            android:parentActivityName=".TimeTrackingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.mvhs.android.zeiterfassung.TimeTrackingActivity" />
+        </activity>
+        <activity
+            android:name=".IssueActivity"
+            android:label="@string/title_activity_issue"
             android:parentActivityName=".TimeTrackingActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
