@@ -1,15 +1,19 @@
 apply plugin: 'com.android.application'
 
+def globalApplicationId = 'de.mvhs.android.zeiterfassung'
+def globalVersionName = '1.0'
+
 android {
     compileSdkVersion 22
     buildToolsVersion '22.0.0'
-
     defaultConfig {
-        applicationId "de.mvhs.android.zeiterfassung"
+        applicationId globalApplicationId
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName globalVersionName
+
+        buildConfigField 'boolean', 'IS_PRO', 'false'
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -18,8 +22,10 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            applicationIdSuffix '.debug'
+        }
     }
-
     packagingOptions {
         exclude "LICENSE.txt"
         exclude 'META-INF/LICENSE.txt'
@@ -27,14 +33,27 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
     }
-
-   dexOptions {
-   }
-
-   compileOptions {
-      sourceCompatibility JavaVersion.VERSION_1_7
-      targetCompatibility JavaVersion.VERSION_1_7
-   }
+    dexOptions {
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    productFlavors {
+        pro {
+            applicationId globalApplicationId + '.pro'
+            versionName globalVersionName + ' PRO'
+            buildConfigField 'boolean', 'IS_PRO', 'true'
+        }
+        free {
+            applicationId globalApplicationId + ".free"
+            versionName globalVersionName + " FREE"
+        }
+        freeGoogle {
+        }
+        freeAmazon {
+        }
+    }
 }
 
 dependencies {

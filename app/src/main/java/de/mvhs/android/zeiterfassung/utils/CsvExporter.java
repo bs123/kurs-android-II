@@ -3,7 +3,9 @@ package de.mvhs.android.zeiterfassung.utils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 
@@ -19,11 +21,13 @@ import de.mvhs.android.zeiterfassung.db.ZeitContract;
  * Created by kurs on 29.04.15.
  */
 public class CsvExporter extends AsyncTask<Void, Integer, Void> {
+    private boolean _sendEmail = false;
     private Context _context;
     private ProgressDialog _dialog;
 
-    public CsvExporter(Context context){
+    public CsvExporter(Context context, boolean sendMail) {
         _context = context;
+        _sendEmail = sendMail;
     }
 
     @Override
@@ -50,7 +54,7 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
 
-        if(_dialog == null || values == null || values.length != 1){
+        if (_dialog == null || values == null || values.length != 1) {
             return;
         }
 
@@ -62,7 +66,22 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        if (_dialog == null){
+        // Email versenden
+        File exportedFileName = new File(
+                new File(Environment.getExternalStorageDirectory(), "export")
+                , "ZeitDaten.csv");
+
+        if(_sendEmail && exportedFileName.exists()){
+            Intent sendEmail = new Intent(Intent.ACTION_SEND);
+            sendEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{"android@android.com"});
+            sendEmail.putExtra(Intent.EXTRA_SUBJECT, "Arbeitszeiterfassung");
+            sendEmail.setType("text/plain");
+            sendEmail.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + exportedFileName));
+
+            _context.startActivity(sendEmail);
+        }
+
+        if (_dialog == null) {
             return;
         }
 
@@ -76,18 +95,18 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
         super.onCancelled();
 
         // Daten werden aufgeräumt
-        if(_dialog != null){
+        if (_dialog != null) {
             _dialog.setMessage(_context.getString(R.string.export_dialog_cancel_message));
         }
 
         // Datei löschen
         File exportFileName = new File(new File(Environment.getExternalStorageDirectory(), "export"), "ZeitDaten.csv");
-        if(exportFileName.exists()){
+        if (exportFileName.exists()) {
             exportFileName.delete();
         }
 
         // Dialog schließen
-        if(_dialog != null){
+        if (_dialog != null) {
             _dialog.dismiss();
             _dialog = null;
         }
@@ -100,15 +119,15 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
                 .query(ZeitContract.ZeitDaten.CONTENT_URI, null, null, null, ZeitContract.ZeitDaten.Columns.START_TIME + " DESC");
 
         // Prüfen, ob Daten vorhanden sind
-        if(data == null || data.getCount() == 0 || isCancelled()){
-            if(data != null){
+        if (data == null || data.getCount() == 0 || isCancelled()) {
+            if (data != null) {
                 data.close();
             }
 
             return null;
         }
 
-        if(_dialog != null){
+        if (_dialog != null) {
             _dialog.setMax(data.getCount() + 1); // +1 für Spaltennamen-Zeile
         }
 
@@ -116,7 +135,7 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
         File sdCardPath = Environment.getExternalStorageDirectory();
 
         // Prüfen, ob externer Bereich beschreibbar ist
-        if(!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+        if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             return null;
         }
 
@@ -125,7 +144,7 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
         File exportFile = new File(exportPath, "ZeitDaten.csv");
 
         // Prüfen, ob Verzeichnis bereits existiert
-        if(!exportPath.exists()){
+        if (!exportPath.exists()) {
             exportPath.mkdirs();
         }
 
@@ -142,7 +161,7 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
             StringBuilder line = new StringBuilder();
 
             // Spaltennamen ausgeben
-            for (String columnName : columns){
+            for (String columnName : columns) {
                 line.append(columnName)
                         .append(",");
             }
@@ -155,14 +174,14 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
 
             publishProgress(1); // Spaltennamen geschrieben
 
-            while (data.moveToNext() && !isCancelled()){
+            while (data.moveToNext() && !isCancelled()) {
                 // Zeile zurücksetzen
                 line.delete(0, line.length());
 
                 // Spaltenwerte auslesen
                 for (int i = 0; i < columns.length; i++) {
                     // NULL Prüfung
-                    if(data.isNull(i)){
+                    if (data.isNull(i)) {
                         line.append("<NULL>")
                                 .append(",");
                     } else {
@@ -187,7 +206,7 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            if(writer != null){
+            if (writer != null) {
                 try {
                     writer.flush();
                     writer.close();
@@ -196,7 +215,7 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
                 }
             }
 
-            if (data != null){
+            if (data != null) {
                 data.close();
             }
         }

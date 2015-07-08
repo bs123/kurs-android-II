@@ -8,12 +8,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import de.mvhs.android.zeiterfassung.BuildConfig;
+
 /**
  * Created by kurs on 15.04.15.
  */
 public final class ZeitContract {
    /* Base Path */
-   private final static String _BASE_PATH = "de.mvhs.android.zeiterfassung";
+   private final static String _BASE_PATH = BuildConfig.APPLICATION_ID;
 
    /* Authority */
    public final static String AUTHORITY = _BASE_PATH + ".provider";

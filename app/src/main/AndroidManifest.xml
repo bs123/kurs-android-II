@@ -23,7 +23,7 @@
 
         <provider
             android:name=".db.ZeitenProvider"
-            android:authorities="de.mvhs.android.zeiterfassung.provider"
+            android:authorities="${applicationId}.provider"
             android:enabled="true"
             android:exported="true" >
         </provider>

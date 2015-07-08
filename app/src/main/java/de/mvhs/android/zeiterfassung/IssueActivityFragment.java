@@ -1,5 +1,8 @@
 package de.mvhs.android.zeiterfassung;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -67,11 +71,30 @@ public class IssueActivityFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_load:
                 // Laden aus dem Internet
-                new WebDownloader().execute();
+                tryLoadWebContent();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void tryLoadWebContent() {
+        ConnectivityManager manager = (ConnectivityManager) getActivity()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo defaultInfo = manager.getActiveNetworkInfo();
+
+        // Spezialisierungen
+        NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            // Web Inhalt laden
+            new WebDownloader().execute();
+        } else {
+            Toast.makeText(getActivity(),
+                    getActivity().getString(R.string.error_no_network),
+                    Toast.LENGTH_LONG).show();
         }
     }
 

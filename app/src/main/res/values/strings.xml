@@ -31,4 +31,5 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_load">Laden</string>
     <string name="action_web">Web</string>
+    <string name="error_no_network">Keine Internetverbindung!</string>
 </resources>

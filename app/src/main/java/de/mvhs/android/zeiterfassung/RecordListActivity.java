@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import de.mvhs.android.zeiterfassung.utils.CsvExporter;
 
@@ -33,10 +34,14 @@ public class RecordListActivity extends ActionBarActivity implements RecordListF
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.action_export:
-                CsvExporter exporter = new CsvExporter(this);
-                exporter.execute();
+                if (BuildConfig.IS_PRO) {
+                    CsvExporter exporter = new CsvExporter(this, true);
+                    exporter.execute();
+                } else{
+                    Toast.makeText(this, "Nur in der Pro Version verfügbar!", Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.action_new:
                 // Starten manueller Eintrag
