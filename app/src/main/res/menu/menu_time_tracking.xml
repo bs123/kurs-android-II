@@ -19,4 +19,9 @@
         android:id="@+id/action_web"
         android:title="@string/action_web"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_sensors"
+        android:title="Sensoren"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -71,6 +71,13 @@ public class TimeTrackingActivity extends ActionBarActivity {
                 handled = true;
                 break;
 
+            case R.id.action_sensors:
+                Intent sensorIntent = new Intent(this, SensorActivity.class);
+                startActivity(sensorIntent);
+
+                handled = true;
+                break;
+
             default:
                 handled = super.onOptionsItemSelected(item);
                 break;
