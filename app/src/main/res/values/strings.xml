@@ -1,0 +1,25 @@
+<resources>
+  <string name="app_name">Zeiterfassung</string>
+  <string name="LabelStartTime">Startzeit:</string>
+  <string name="LabelEndTimes">Endzeit:</string>
+  <string name="ButtonStart">Staren</string>
+  <string name="ButtonEnd">Beenden</string>
+  <string name="LabelPause">Pause:</string>
+  <string name="LabelComment">Kommentar:</string>
+  <string name="MenuListData">Auflistung</string>
+  <string name="ColumnHeaderStartTime">Startzeit</string>
+  <string name="ColumnHeaderEndTime">Endzeit</string>
+  <string name="ListDataActivityTitle">Auflistung</string>
+  <string name="EditDataActivityTitle">Bearbeiten</string>
+  <string name="ExportDialogTitle">Export ...</string>
+  <string name="ExportDialogMessage">Daten werden exportiert!</string>
+  <string name="CancelButton">Abbrechen</string>
+  <string name="MenuItemExport">Export</string>
+  <string name="MenuItemDelete">Löschen</string>
+  <string name="NewDataActivityTitle">Neuer Datansatz</string>
+  <string name="MenuItemAdd">Hinzufügen</string>
+  <string name="DeleteDialogTitle">Löschen</string>
+  <string name="DeleteDialogMessage">Wollen Sie wirklich den Datensatz löschen?</string>
+  <string name="DialogCancelButton">Abbrechen</string>
+  <string name="DialogDeleteButton">Löschen</string>
+</resources>

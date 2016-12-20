@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Time Tracking</string>
+    <string name="ButtonEnd">End</string>
+    <string name="ButtonStart">Start</string>
+    <string name="LabelEndTimes">End Time:</string>
+    <string name="LabelStartTime">Start Time:</string>
+    <string name="ColumnHeaderEndTime">End Time</string>
+    <string name="ColumnHeaderStartTime">Start Time</string>
+    <string name="LabelComment">Comment:</string>
+    <string name="LabelPause">Pause:</string>
+    <string name="ListDataActivityTitle">Data List</string>
+    <string name="MenuListData">List</string>
+    <string name="EditDataActivityTitle">Edit Data</string>
+    <string name="ExportDialogTitle">Export ...</string>
+    <string name="CancelButton">Cancel</string>
+    <string name="ExportDialogMessage">Data are exported!</string>
+    <string name="MenuItemExport">Export</string>
+    <string name="MenuItemDelete">Delete</string>
+    <string name="NewDataActivityTitle">New Data</string>
+</resources>
