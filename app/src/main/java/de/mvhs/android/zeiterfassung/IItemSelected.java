@@ -6,4 +6,5 @@ package de.mvhs.android.zeiterfassung;
 
 public interface IItemSelected  {
 
+
 }
