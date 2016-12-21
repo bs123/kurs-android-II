@@ -1,44 +1,46 @@
-# Aufbaukurs: Android-Programmierung
+# Grundkurs: Android-Programmierung
+## Erstellung einer Datenbankbasierten App
 
-## Tablets, TV, Internet und mehr mit Android
+### Voraussetzungen
+- Java, XML und SQL auf Anfängerniveau
 
-### Kursbeschreibung
+#### Kursbeschreibung
+Können Sie bereits in einer objektorientierten Sprache programmieren? Wollen Sie eine App für Ihr Android-Gerät schreiben? Wollen Sie ein neues und spannendes Hobby anfangen?
 
-Sie können bereits einfache Apps für Android entwickeln, wollen aber noch das Wissen vertiefen? Wollen Sie die eigene App für mehr Geräte optimieren?
+Im Workshop erstellen Sie eine kleine App, die die Daten in einer internen Datenbank speichert und mit dem Benutzer interagiert. Dabei werden die Grundlagen der Programmierung für Android gelernt und umgesetzt.
 
-Sie werden eine App im Workshop für unterschiedliche Gerätegrößen optimieren. Im weiteren Verlauf werden die unterschiedlichen Sensoren und Android-Dienste durch die App angesprochen. Der Zugriff der App auf das Internet ermöglicht das Einbinden dynamischer Inhalte.
+Eigene Laptops können gern für den Kurs eingesetzt werden.
 
-Eigene Laptops können gern im Kurs eingesetzt werden.
+#### Kursinhalt
+- Content Provider
+- Activities
+- Menüs
+- Hintergrundprozesse
+- Debugging
 
-### Voraussetzung
-Java, XML, SQL, Android-Programmierung auf Anfängerniveau.
-
-### Kursinhalt
-- Implizite Intents
-- externe Content Provider
-- Kamera / GPS / Galerie / Dateisystem
-- UnitTesting
-- Internetzugriff (Client und Sockets)
-
-### Dauer
-- 12 Doppelstunden
-
-### Nächster Termin
-- 21.12.2016
+#### Dauer
+- 12 Doppelstunden (6 x 180 Minuten)
 
 ## Links
 ### Community
-- Community: [`wdurl.de/WDAndKurseGPlus`](https://wdurl.de/WDAndKurseGPlus)
+- Google+ Community: [wdurl.de/WDAndKurseGPlus](http://wdurl.de/WDAndKurseGPlus "Google+ Community des Kurses")
 
-### Bücher
-- Android 5: Apps entwickeln mit Android Studio [`wdurl.de/RWAnd5Buch`](https://wdurl.de/RWAnd5Buch "Android 5: Apps entwickeln mit Android Studio") (affiliate link)
-- Android-Apps entwickeln für Einsteiger: Eigene Apps und Spiele mit Android Studio 2.2 [`wdurl.de/RWAndStartBuch`](https://wdurl.de/RWAndStartBuch "Android-Apps entwickeln für Einsteiger: Eigene Apps und Spiele mit Android Studio 2.2") (affiliate link)
-- Android 5: Programmieren für Smartphones und Tablets [`wdurl.de/DPAnd5Buch`](https://wdurl.de/DPAnd5Buch "Android 5: Programmieren für Smartphones und Tablets") (affiliate link)
-- Java ist auch eine Insel [`wdurl.de/RWJavaInsel`](https://wdurl.de/RWJavaInsel "Java ist auch eine Insel") (affiliate link)
+## Bücher
+- Android 5: Apps entwickeln mit Android Studio [`wdurl.de/RWAnd5Buch`](http://wdurl.de/RWAnd5Buch "Android 5: Apps entwickeln mit Android Studio") (affiliate link)
+- Android-Apps entwickeln für Einsteiger: Eigene Apps und Spiele mit Android Studio 2.2 [wdurl.de/RWAndStartBuch](http://wdurl.de/RWAndStartBuch "Android-Apps entwickeln für Einsteiger: Eigene Apps und Spiele mit Android Studio 2.2") (affiliate link)
+- Android 5: Programmieren für Smartphones und Tablets [`wdurl.de/DPAnd5Buch`](http://wdurl.de/DPAnd5Buch "Android 5: Programmieren für Smartphones und Tablets") (affiliate link)
+- Java ist auch eine Insel [`wdurl.de/RWJavaInsel`](http://wdurl.de/RWJavaInsel "Java ist auch eine Insel") (affiliate link)
 
+## Links
 ### Downloads
-- Java SDK [www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html "Java SDK Download")
-- Android Studio Download [developer.android.com/sdk/index.html](http://developer.android.com/sdk/index.html "Download von Android Studio")
+- Java SDK [wdurl.de/JDK](http://wdurl.de/JDK "Java SDK Download")
+- Android Studio Download [wdurl.de/AndroidStudio](http://wdurl.de/AndroidStudio "Download von Android Studio")
+
+### Blogbeisträge
+- Android Studio Installieren und Einrichten für Android Entwicklung [wdurl.de/WDAsInst](http://wdurl.de/WDAsInst "Tutorial zu: Android Studio Installieren und Einrichten für Android Entwicklung")
+- Android Studio: Projekt aus Versionsverwaltung öffnen [wdurl.de/WDAsProjGit](http://wdurl.de/WDAsProjGit "Android Studio: Projekt aus Versionsverwaltung öffnen")
+- Android Studio: Neues Projekt anlegen [wdurl.de/WDAsNewProj](http://wdurl.de/WDAsNewProj "Android Studio: Neues Projekt anlegen")
+- Android Tutorials von Lars Vogel (Englisch) [wdurl.de/AndVogelLa](http://wdurl.de/AndVogelLa)
 
 ## Lizenz
 
@@ -46,5 +48,6 @@ Die Dokumentation unterliegen der [![Creative Commons Lizenzvertrag](https://i.c
 
 Der Quellcode unterliegt der [![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png) CC0 1.0 Universell Lizenz](https://creativecommons.org/publicdomain/zero/1.0/deed.de).
 
-### Fattr
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=WebDucer&url=https://github.com/WebDucer-MVHS/kurs-android-I-a&title=Aufbaukurs: Programme entwickeln für Android-Geräte&language=de_DE&tags=github,Android,App,MVHS&category=software)
+## Fattr
+
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=WebDucer&url=https://github.com/WebDucer-MVHS/kurs-android-einblick&title=Einblick in die Programmentwicklung für Android-Smartphones&language=de_DE&tags=github,Android,App&category=software)

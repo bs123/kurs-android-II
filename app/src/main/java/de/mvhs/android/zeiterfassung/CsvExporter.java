@@ -143,10 +143,6 @@ public class CsvExporter extends AsyncTask<Void, Integer, Void> {
       // Aktuellen Status senden
       publishProgress(1); // Spalten-Zeile
 
-      if (BuildConfig.IS_PRO){
-        return null;
-      }
-
       while (data.moveToNext() && !isCancelled()) {
         // Leeren der Zeileninhalte
         line.delete(0, line.length());

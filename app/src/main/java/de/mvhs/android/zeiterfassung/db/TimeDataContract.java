@@ -73,14 +73,14 @@ public class TimeDataContract {
        */
       String END = "end_time";
 
-      /**
-       * Pausendauer in Minuten (Standard: 0 Minuten)
-       */
+        /**
+         * Pause in Minuten (Standard: 0)
+         */
       String PAUSE = "pause_time";
 
-      /**
-       * Kommentar zu der aufgezeichneten Zeit
-       */
+        /**
+         * Kommentar
+         */
       String COMMENT = "comment";
     }
   }
