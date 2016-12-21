@@ -6,6 +6,6 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="de.mvhs.android.zeiterfassung.ListDataFragment"
-        android:id="@+id/fragment" />
+        android:name="de.mvhs.android.zeiterfassung.EditFragment"
+        android:id="@+id/fragment2" />
 </LinearLayout>

@@ -1,31 +1,20 @@
 package de.mvhs.android.zeiterfassung;
 
-import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.TintContextWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
 
-import de.mvhs.android.zeiterfassung.db.DbHelper;
 import de.mvhs.android.zeiterfassung.db.TimeDataContract;
 
 public class MainActivity extends AppCompatActivity {
@@ -133,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
       case R.id.MenuAddNew:
         Intent addIntent = new Intent(this, EditActivity.class);
+        addIntent.putExtra(EditFragment.READONLY_KEY, false);
         startActivity(addIntent);
         return true;
 
