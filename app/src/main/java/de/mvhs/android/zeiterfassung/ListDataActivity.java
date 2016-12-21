@@ -8,10 +8,11 @@ import android.support.v7.app.AppCompatActivity;
  * Created by javadev on 21.12.16.
  */
 
-public class ListDataActivity extends AppCompatActivity {
+public class ListDataActivity extends AppCompatActivity implements IItemSelected {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_data);
     }
+
 }
