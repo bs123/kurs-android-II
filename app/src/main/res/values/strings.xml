@@ -22,4 +22,5 @@
   <string name="DeleteDialogMessage">Wollen Sie wirklich den Datensatz löschen?</string>
   <string name="DialogCancelButton">Abbrechen</string>
   <string name="DialogDeleteButton">Löschen</string>
+  <string name="MenuItemEdit">Bearbeiten</string>
 </resources>

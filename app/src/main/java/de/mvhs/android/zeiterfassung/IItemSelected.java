@@ -5,5 +5,7 @@ package de.mvhs.android.zeiterfassung;
  */
 
 public interface IItemSelected {
-    void onItemSelected(long id);
+  void onItemSelected(long id);
+
+  boolean canEditOverSelection();
 }

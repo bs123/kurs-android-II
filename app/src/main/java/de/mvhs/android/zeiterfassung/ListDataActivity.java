@@ -13,26 +13,38 @@ import android.support.v7.app.AppCompatActivity;
 
 public class ListDataActivity extends AppCompatActivity
     implements IItemSelected {
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_data);
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_list_data);
+  }
+
+  @Override
+  public void onItemSelected(long id) {
+    FragmentManager manager = getSupportFragmentManager();
+    Fragment detailFragment = manager.findFragmentById(R.id.DetailFragment);
+
+    if (detailFragment instanceof IChangeContent && detailFragment.isAdded()) {
+      // Fragment vorhanden
+      ((IChangeContent) detailFragment).onChangeContent(id);
+    } else {
+      // Intent für die Bearbeitung
+      Intent detailIntent = new Intent(this, EditActivity.class);
+      detailIntent.putExtra(EditFragment.ID_KEY, id);
+      detailIntent.putExtra(EditFragment.READONLY_KEY, false);
+      startActivity(detailIntent);
+    }
+  }
+
+  @Override
+  public boolean canEditOverSelection() {
+    FragmentManager manager = getSupportFragmentManager();
+    Fragment detailFragment = manager.findFragmentById(R.id.DetailFragment);
+
+    if (detailFragment instanceof IChangeContent && detailFragment.isAdded()) {
+      return false;
     }
 
-    @Override
-    public void onItemSelected(long id) {
-        FragmentManager manager = getSupportFragmentManager();
-        Fragment detailFragment = manager.findFragmentById(R.id.DetailFragment);
-
-        if (detailFragment instanceof IChangeContent){
-            // Fragment vorhanden
-            ((IChangeContent)detailFragment).onChangeContent(id);
-        } else {
-            // Intent für die Bearbeitung
-            Intent detailIntent = new Intent(this, EditActivity.class);
-            detailIntent.putExtra(EditFragment.ID_KEY, id);
-            detailIntent.putExtra(EditFragment.READONLY_KEY, false);
-            startActivity(detailIntent);
-        }
-    }
+    return true;
+  }
 }

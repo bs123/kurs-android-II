@@ -74,8 +74,8 @@ public class ListDataFragment extends Fragment
   public void onAttach(Context context) {
     super.onAttach(context);
 
-    if(context instanceof IItemSelected){
-      _itemSelectedListener = (IItemSelected)context;
+    if (context instanceof IItemSelected) {
+      _itemSelectedListener = (IItemSelected) context;
     }
   }
 
@@ -101,12 +101,12 @@ public class ListDataFragment extends Fragment
 
     // Adapter initialisieren
     _adapter = new SimpleCursorAdapter(
-            getActivity(), // Context
-            R.layout.row_data_item, // Layout für die Zeile
-            null, // Daten
-            _VIEW_COLUMNS, // Spalten aus den Daten
-            _LAYOUT_VIEW_IDS, // IDs der Views im Layout
-            SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER // Benachrichtigung
+        getActivity(), // Context
+        R.layout.row_data_item, // Layout für die Zeile
+        null, // Daten
+        _VIEW_COLUMNS, // Spalten aus den Daten
+        _LAYOUT_VIEW_IDS, // IDs der Views im Layout
+        SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER // Benachrichtigung
     );
 
     // Verarbeitung der Datum und Uhrzeit Werte
@@ -155,7 +155,7 @@ public class ListDataFragment extends Fragment
     _dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (_itemSelectedListener != null){
+        if (_itemSelectedListener != null) {
           _itemSelectedListener.onItemSelected(id);
         }
       }
@@ -178,6 +178,7 @@ public class ListDataFragment extends Fragment
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     inflater.inflate(R.menu.menu_list, menu);
+
     super.onCreateOptionsMenu(menu, inflater);
   }
 
@@ -215,6 +216,12 @@ public class ListDataFragment extends Fragment
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
     if (v.getId() == R.id.DataList) {
       getActivity().getMenuInflater().inflate(R.menu.menu_context_list, menu);
+
+      // Deaktivieren des Bearbeiten-Menüs, falls nur Liste sichtbar => Select führt zu Bearbeitung
+      if (_itemSelectedListener != null && _itemSelectedListener.canEditOverSelection()) {
+        MenuItem editItem = menu.findItem(R.id.MenuItemEdit);
+        editItem.setVisible(false);
+      }
     }
     super.onCreateContextMenu(menu, v, menuInfo);
   }
@@ -250,6 +257,13 @@ public class ListDataFragment extends Fragment
 
         builder.create().show();
 
+        return true;
+
+      case R.id.MenuItemEdit:
+        Intent detailIntent = new Intent(getActivity(), EditActivity.class);
+        detailIntent.putExtra(EditFragment.ID_KEY, info.id);
+        detailIntent.putExtra(EditFragment.READONLY_KEY, false);
+        startActivity(detailIntent);
         return true;
 
       default:

@@ -18,4 +18,10 @@
     <string name="MenuItemExport">Export</string>
     <string name="MenuItemDelete">Delete</string>
     <string name="NewDataActivityTitle">New Data</string>
+    <string name="DeleteDialogTitle">Delete</string>
+    <string name="DialogDeleteButton">Delete</string>
+    <string name="DialogCancelButton">Cancel</string>
+    <string name="DeleteDialogMessage">Are you realy shure to delete the data?</string>
+    <string name="MenuItemAdd">Add</string>
+    <string name="MenuItemEdit">Edit</string>
 </resources>

@@ -79,21 +79,21 @@ public class EditFragment extends Fragment implements IChangeContent {
     _isReadonly = getActivity().getIntent().getBooleanExtra(READONLY_KEY, true);
 
     // Initialisieren der UI Elemente
-    _startDate = (EditText)rootView.findViewById(R.id.StartDateValue);
+    _startDate = (EditText) rootView.findViewById(R.id.StartDateValue);
     _startDate.setKeyListener(null);
     _startDate.setEnabled(!_isReadonly);
-    _startTime = (EditText)rootView.findViewById(R.id.StartTimeValue);
+    _startTime = (EditText) rootView.findViewById(R.id.StartTimeValue);
     _startTime.setKeyListener(null);
     _startTime.setEnabled(!_isReadonly);
-    _endDate = (EditText)rootView.findViewById(R.id.EndDateValue);
+    _endDate = (EditText) rootView.findViewById(R.id.EndDateValue);
     _endDate.setKeyListener(null);
     _endDate.setEnabled(!_isReadonly);
-    _endTime = (EditText)rootView.findViewById(R.id.EndTimeValue);
+    _endTime = (EditText) rootView.findViewById(R.id.EndTimeValue);
     _endTime.setKeyListener(null);
     _endTime.setEnabled(!_isReadonly);
-    _pause = (EditText)rootView.findViewById(R.id.PauseValue);
+    _pause = (EditText) rootView.findViewById(R.id.PauseValue);
     _pause.setEnabled(!_isReadonly);
-    _comment = (EditText)rootView.findViewById(R.id.CommentValue);
+    _comment = (EditText) rootView.findViewById(R.id.CommentValue);
     _comment.setEnabled(!_isReadonly);
 
     return rootView;
@@ -103,7 +103,7 @@ public class EditFragment extends Fragment implements IChangeContent {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    if(!_isReadonly){
+    if (!_isReadonly) {
       setHasOptionsMenu(true);
     }
   }
@@ -112,7 +112,7 @@ public class EditFragment extends Fragment implements IChangeContent {
   public void onStart() {
     super.onStart();
 
-    if (_isReadonly){
+    if (_isReadonly) {
       return;
     }
 
@@ -129,6 +129,7 @@ public class EditFragment extends Fragment implements IChangeContent {
     _endDate.setOnLongClickListener(new OnDateDialogShow(getActivity(), _endDatTimeValue, _endDate));
     _endTime.setOnLongClickListener(new OnTimeDialogShow(getActivity(), _endDatTimeValue, _endTime));
   }
+
   @Override
   public void onStop() {
     // Speichern, nur wenn nicht abgebrochen
@@ -137,7 +138,7 @@ public class EditFragment extends Fragment implements IChangeContent {
     }
 
     // Verhindet den Fehler beim Drehen des Bildschirms
-    if(_dialog != null && _dialog.isShowing()){
+    if (_dialog != null && _dialog.isShowing()) {
       _dialog.dismiss();
     }
 
@@ -273,6 +274,10 @@ public class EditFragment extends Fragment implements IChangeContent {
   }
 
   private void saveData() {
+    // save only if data is editable
+    if (_isReadonly) {
+      return;
+    }
     // Daten sammeln
     ContentValues values = new ContentValues();
     // Startzeit
@@ -315,12 +320,12 @@ public class EditFragment extends Fragment implements IChangeContent {
     loadData();
   }
 
-  class OnDateDialogShow implements View.OnLongClickListener{
+  class OnDateDialogShow implements View.OnLongClickListener {
     private final Context _context;
     private final Calendar _dateToChenge;
     private final EditText _textToChange;
 
-    OnDateDialogShow(Context context, Calendar dateToChenge, EditText textToChange){
+    OnDateDialogShow(Context context, Calendar dateToChenge, EditText textToChange) {
 
       _context = context;
       _dateToChenge = dateToChenge;
@@ -350,12 +355,12 @@ public class EditFragment extends Fragment implements IChangeContent {
     }
   }
 
-  class OnTimeDialogShow implements View.OnLongClickListener{
+  class OnTimeDialogShow implements View.OnLongClickListener {
     private final Context _context;
     private final Calendar _timeToChange;
     private final EditText _textToChange;
 
-    OnTimeDialogShow(Context context, Calendar timeToChange, EditText textToChange){
+    OnTimeDialogShow(Context context, Calendar timeToChange, EditText textToChange) {
 
       _context = context;
       _timeToChange = timeToChange;
