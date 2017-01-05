@@ -12,6 +12,11 @@ import de.mvhs.android.zeiterfassung.db.TimeDataContract;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
+// Monkey Runner
+//
+// adb shell monkey -p de.mvhs.android.zeiterfassung -v 2000
+//
+
 /**
  * Created by eugen on 05.01.17.
  */
