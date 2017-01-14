@@ -116,9 +116,10 @@ public class MainActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.MenuListData:
-        Intent listIntent = new Intent(this, ListDataActivity.class);
-        startActivity(listIntent);
-        return true;
+        //Intent listIntent = new Intent(this, ListDataActivity.class);
+        //startActivity(listIntent);
+        throw new IllegalArgumentException("Crash Test");
+        //return true;
 
       case R.id.MenuAddNew:
         Intent addIntent = new Intent(this, EditActivity.class);
