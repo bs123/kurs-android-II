@@ -12,6 +12,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'boolean', 'IS_PRO', 'false'
+        // ALLE Featrure toggles in Default configurireren und in flavors übersterueren !!
     }
     buildTypes {
         release {
