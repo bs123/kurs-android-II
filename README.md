@@ -1,5 +1,13 @@
 # Aufbaukurs: Android-Programmierung
 
+todo crashreport eval  fabric and google firebase
+
+
+
+adb shell monkey -p de.mvhs.android.zeiterfassung -v 1000
+
+
+
 ## Tablets, TV, Internet und mehr mit Android
 
 ### Kursbeschreibung
