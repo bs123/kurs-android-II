@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.support.annotation.NonNull;
+import android.support.compat.BuildConfig;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,7 +21,7 @@ public class TimeDataContract {
   /**
    * Eindeutiger name des Content Providers
    */
-  public final static String AUTHORITY = "de.mvhs.android.zeiterfassung.provider";
+  public final static String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
   /**
    * URL zum Content Provicer (Basis URI)

@@ -6,7 +6,7 @@
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
   <application
-      android:name=".TimeTrackingApp"
+    android:name=".TimeTrackingApp"
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
@@ -34,12 +34,6 @@
         android:value=".ListDataActivity"/>
     </activity>
 
-    <!--Provider -->
-    <provider
-      android:name=".db.TimeDataProvider"
-      android:authorities="de.mvhs.android.zeiterfassung.provider"
-      android:enabled="true"
-      android:exported="false"/>
   </application>
 
 </manifest>

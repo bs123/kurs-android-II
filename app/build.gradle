@@ -22,6 +22,10 @@ android {
     productFlavors {
         pro {
             buildConfigField 'boolean', 'IS_PRO', 'true'
+            applicationId 'de.mvhs.android.zeiterfassung.pro'
+        }
+        free {
+            applicationId 'de.mvhs.android.zeiterfassung.free'
         }
     }
 }
