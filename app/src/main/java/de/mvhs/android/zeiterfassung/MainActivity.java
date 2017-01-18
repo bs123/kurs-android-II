@@ -110,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_main, menu);
     if (!BuildConfig.IS_PRO) {
-      //Do somting
+      //Do sth
+      //addMenue.setVisible(false);
     }
 
     return super.onCreateOptionsMenu(menu);
