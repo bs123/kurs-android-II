@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
 
       case R.id.MenuAddNew:
+        double crach = 100/0;
         Intent addIntent = new Intent(this, EditActivity.class);
         addIntent.putExtra(EditFragment.READONLY_KEY, false);
         startActivity(addIntent);

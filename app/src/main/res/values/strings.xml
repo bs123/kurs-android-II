@@ -23,4 +23,6 @@
   <string name="DialogCancelButton">Abbrechen</string>
   <string name="DialogDeleteButton">Löschen</string>
   <string name="MenuItemEdit">Bearbeiten</string>
+  <string name="CrashDialogText"> bitte senden Sie uns unser Problem.</string>
+  <string name="CrashDialogTitle">Major-Major FUCKUP!</string>
 </resources>
