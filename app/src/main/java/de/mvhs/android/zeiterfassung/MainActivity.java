@@ -109,6 +109,12 @@ public class MainActivity extends AppCompatActivity {
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_main, menu);
+
+    if (!BuildConfig.IS_PRO){
+      MenuItem addMenu = menu.findItem(R.id.MenuAddNew);
+      addMenu.setVisible(false);
+    }
+
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -116,12 +122,12 @@ public class MainActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.MenuListData:
-        //Intent listIntent = new Intent(this, ListDataActivity.class);
-        //startActivity(listIntent);
-        throw new IllegalArgumentException("Crash Test");
-        //return true;
+        Intent listIntent = new Intent(this, ListDataActivity.class);
+        startActivity(listIntent);
+        return true;
 
       case R.id.MenuAddNew:
+        double crash = 100 / 0;
         Intent addIntent = new Intent(this, EditActivity.class);
         addIntent.putExtra(EditFragment.READONLY_KEY, false);
         startActivity(addIntent);

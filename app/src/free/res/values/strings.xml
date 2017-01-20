@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zeiterfassung Kostenlos</string>
+    <!-- Content Provider AUTHORITY über String-Ressource definieren -->
+    <!--<string name="ProviderAuthority">de.mvhs.android.zeiterfassung.free.provider</string>-->
+</resources>

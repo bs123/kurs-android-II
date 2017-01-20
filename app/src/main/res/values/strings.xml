@@ -23,6 +23,8 @@
   <string name="DialogCancelButton">Abbrechen</string>
   <string name="DialogDeleteButton">Löschen</string>
   <string name="MenuItemEdit">Bearbeiten</string>
-  <string name="CrashDialogText">Die App "Zeiterfassung" wurde unerwartet beendet. Bitte senden Sie die Informationen an die Entwickler, damit der Fehler schnell behoben werden kann.</string>
-  <string name="CrashDialogTitle">Zeiterfassung beendet</string>
+  <string name="CrashDialogText" translatable="false">Bitte schickend Sie den Absturzbericht an den Entwickler!</string>
+  <string name="CrashDialogTitle" translatable="false">Zeiterfassung abgestürzt!</string>
+  <!-- Content Provider AUTHORITY über String-Ressource definieren -->
+  <!--<string name="ProviderAuthority">de.mvhs.android.zeiterfassung.provider</string>-->
 </resources>

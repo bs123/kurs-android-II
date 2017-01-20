@@ -11,39 +11,39 @@ import org.acra.config.ACRAConfigurationException;
 import org.acra.config.ConfigurationBuilder;
 
 /**
- * Created by eugen on 14.01.17.
+ * Created by Kurs on 18.01.2017.
  */
 
 @ReportsCrashes(
-    mailTo = "android@webducer.de",
-    mode = ReportingInteractionMode.DIALOG,
-    resDialogText = R.string.CrashDialogText,
-    resDialogTitle = R.string.CrashDialogTitle,
-    resDialogTheme = R.style.AppTheme,
-    resDialogIcon = R.drawable.ic_cancel
+        mailTo = "crash@mvhs.de",
+        mode = ReportingInteractionMode.DIALOG,
+        resDialogTitle = R.string.CrashDialogTitle,
+        resDialogText = R.string.CrashDialogText,
+        resDialogIcon = R.mipmap.ic_launcher,
+        resDialogTheme = R.style.AppTheme
 )
-public class TimeTrackingApp  extends Application {
-  @Override
-  protected void attachBaseContext(Context base) {
-    super.attachBaseContext(base);
+public final class TimeTrackingApp extends Application {
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
 
-    // Init Crash Reporting for production
-    //if (!BuildConfig.DEBUG) {
-      // Config on init
-//      try {
-//        final ACRAConfiguration config = new ConfigurationBuilder(this)
-//            .setMailTo("android@webducer.de")
-//            .setReportingInteractionMode(ReportingInteractionMode.DIALOG)
-//            .setResDialogText(R.string.CrashDialogText)
-//            .setResDialogTitle(R.string.CrashDialogTitle)
-//            .setResDialogIcon(R.drawable.ic_cancel)
-//            .setResDialogTheme(R.style.AppTheme)
-//            .build();
+        // Initialisierung über Code
+//        try {
+//            final ACRAConfiguration config =
+//                    new ConfigurationBuilder(this)
+//                            .setMailTo("crash@mvhs.de")
+//                            .setReportingInteractionMode(ReportingInteractionMode.DIALOG)
+//                            .setResDialogText(R.string.CrashDialogText)
+//                            .setResDialogTitle(R.string.CrashDialogTitle)
+//                            .setResDialogTheme(R.style.AppTheme)
+//                            .setResDialogIcon(R.mipmap.ic_launcher)
+//                            .build();
+//
+//            ACRA.init(this, config);
+//        } catch (ACRAConfigurationException e) {
+//            e.printStackTrace();
+//        }
 
         ACRA.init(this);
-//      } catch (ACRAConfigurationException e) {
-//        e.printStackTrace();
-//      }
-    //}
-  }
+    }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <application>
+
+  <!-- Content Provider AUTHORITY über eigene Manifest-Datei definieren -->
+    <!--Provider -->
+    <!--<provider-->
+        <!--android:name=".db.TimeDataProvider"-->
+        <!--android:authorities="de.mvhs.android.zeiterfassung.free.provider"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="false"/>-->
+  </application>
+
+</manifest>

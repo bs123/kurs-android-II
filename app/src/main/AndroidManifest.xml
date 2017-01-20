@@ -6,8 +6,8 @@
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
   <application
+    android:name="de.mvhs.android.zeiterfassung.TimeTrackingApp"
     android:allowBackup="true"
-    android:name=".TimeTrackingApp"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
     android:supportsRtl="true"
@@ -20,24 +20,24 @@
       </intent-filter>
     </activity>
     <activity
-      android:name=".ListDataActivity"
+      android:name="de.mvhs.android.zeiterfassung.ListDataActivity"
       android:label="@string/ListDataActivityTitle">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".MainActivity"/>
+        android:value="de.mvhs.android.zeiterfassung.MainActivity"/>
     </activity>
     <activity
-      android:name=".EditActivity"
+      android:name="de.mvhs.android.zeiterfassung.EditActivity"
       android:label="@string/EditDataActivityTitle">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".ListDataActivity"/>
+        android:value="de.mvhs.android.zeiterfassung.ListDataActivity"/>
     </activity>
 
     <!--Provider -->
     <provider
-      android:name=".db.TimeDataProvider"
-      android:authorities="de.mvhs.android.zeiterfassung.provider"
+      android:name="de.mvhs.android.zeiterfassung.db.TimeDataProvider"
+      android:authorities="@string/ProviderAuthority"
       android:enabled="true"
       android:exported="false"/>
   </application>

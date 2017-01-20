@@ -12,6 +12,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'boolean', 'IS_PRO', 'false'
+
+        // String Resource für Provider Authority über Gradle
+        resValue 'string', 'ProviderAuthority', 'de.mvhs.android.zeiterfassung.provider'
     }
     buildTypes {
         release {
@@ -22,6 +25,14 @@ android {
     productFlavors {
         pro {
             buildConfigField 'boolean', 'IS_PRO', 'true'
+            applicationId 'de.mvhs.android.zeiterfassung.pro'
+            // String Resource für Provider Authority über Gradle
+            resValue 'string', 'ProviderAuthority', 'de.mvhs.android.zeiterfassung.pro.provider'
+        }
+        free {
+            applicationId 'de.mvhs.android.zeiterfassung.free'
+            // String Resource für Provider Authority über Gradle
+            resValue 'string', 'ProviderAuthority', 'de.mvhs.android.zeiterfassung.free.provider'
         }
     }
 }
@@ -31,8 +42,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:gridlayout-v7:25.1.0'
-    // Crash Reporting
-    compile 'ch.acra:acra:4.9.2'
     // Local unit tests
     testCompile 'org.mockito:mockito-core:2.5.4'
     testCompile 'junit:junit:4.12'
@@ -41,4 +50,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    compile 'ch.acra:acra:4.9.2'
 }
