@@ -25,6 +25,9 @@
   <string name="MenuItemEdit">Bearbeiten</string>
   <string name="CrashDialogText" translatable="false">Bitte schickend Sie den Absturzbericht an den Entwickler!</string>
   <string name="CrashDialogTitle" translatable="false">Zeiterfassung abgestürzt!</string>
+  <string name="IssueActivityTitle">Fehlerliste</string>
+  <string name="MenuItemIssues">Fehler</string>
+  <string name="MenuItemLoad">Laden</string>
   <!-- Content Provider AUTHORITY über String-Ressource definieren -->
   <!--<string name="ProviderAuthority">de.mvhs.android.zeiterfassung.provider</string>-->
 </resources>

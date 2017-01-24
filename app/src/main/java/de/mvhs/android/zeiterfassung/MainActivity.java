@@ -133,6 +133,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(addIntent);
         return true;
 
+      case R.id.Issues:
+        Intent issuesIntent = new Intent(this, IssueActivity.class);
+        startActivity(issuesIntent);
+        return true;
+
       default:
         return super.onOptionsItemSelected(item);
     }

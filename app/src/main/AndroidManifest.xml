@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="de.mvhs.android.zeiterfassung">
+    package="de.mvhs.android.zeiterfassung">
 
-  <!-- Berechtigungen -->
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- Berechtigungen -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-  <application
-    android:name="de.mvhs.android.zeiterfassung.TimeTrackingApp"
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:supportsRtl="true"
-    android:theme="@style/AppTheme">
-    <activity android:name=".MainActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+    <application
+        android:name="de.mvhs.android.zeiterfassung.TimeTrackingApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
-    <activity
-      android:name="de.mvhs.android.zeiterfassung.ListDataActivity"
-      android:label="@string/ListDataActivityTitle">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="de.mvhs.android.zeiterfassung.MainActivity"/>
-    </activity>
-    <activity
-      android:name="de.mvhs.android.zeiterfassung.EditActivity"
-      android:label="@string/EditDataActivityTitle">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="de.mvhs.android.zeiterfassung.ListDataActivity"/>
-    </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.mvhs.android.zeiterfassung.ListDataActivity"
+            android:label="@string/ListDataActivityTitle">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.mvhs.android.zeiterfassung.MainActivity" />
+        </activity>
+        <activity
+            android:name="de.mvhs.android.zeiterfassung.EditActivity"
+            android:label="@string/EditDataActivityTitle">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.mvhs.android.zeiterfassung.ListDataActivity" />
+        </activity>
+        <activity
+            android:name=".IssueActivity"
+            android:label="@string/IssueActivityTitle">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.mvhs.android.zeiterfassung.MainActivity" />
+        </activity>
 
-    <!--Provider -->
-    <provider
-      android:name="de.mvhs.android.zeiterfassung.db.TimeDataProvider"
-      android:authorities="@string/ProviderAuthority"
-      android:enabled="true"
-      android:exported="false"/>
-  </application>
+        <!--Provider -->
+        <provider
+            android:name="de.mvhs.android.zeiterfassung.db.TimeDataProvider"
+            android:authorities="@string/ProviderAuthority"
+            android:enabled="true"
+            android:exported="false" />
+    </application>
 
 </manifest>
